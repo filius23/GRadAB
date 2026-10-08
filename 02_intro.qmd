@@ -44,7 +44,7 @@ Sounds good, right?
 
 Some general aspects where working with R differs from other programs:
 
-- ~~R does not necessarily stop at a syntax error but tries to execute the remaining commands. *However:* RStudio stops with a syntax error from version [2022.07](https://stackoverflow.com/questions/73567974/how-to-make-r-by-default-not-stopping-when-an-error-is-encountered-while-running/73641357#73641357) onwards.~~
+<!-- - ~~R does not necessarily stop at a syntax error but tries to execute the remaining commands. *However:* RStudio stops with a syntax error from version [2022.07](https://stackoverflow.com/questions/73567974/how-to-make-r-by-default-not-stopping-when-an-error-is-encountered-while-running/73641357#73641357) onwards.~~ -->
 
 - For Stata users: no more `variable xyz already defined`. We can overwrite anything without `, replace`, or similar commands.
 
@@ -264,47 +264,64 @@ With `install.packages()` we essentially screw in the light bulb in R, with `lib
 knitr::include_graphics("./pic/104_install-packages.jpg")
 ```
 
-### R packages on IAB Servers {#fdz_install}
 
-:::{.callout-caution}
+### R packages on IAB servers: `fdzinstall()` {#fdz_install}
 
-R Packages are typically installed from [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html).
-However, this is not possible on the servers at IAB due to isolation from the internet.
-As a result, package installation is restricted on IAB servers to the collection maintained by DIM at `N:/Ablagen/D01700-Allgemein/R/bin/windows/contrib/`.
 
-A central challenge in installing from local zip files is handling *dependencies*: packages that the desired package relies on.
-When installing from the internet, dependencies are automatically installed, but with a local installation, this is not the case.
+:::{.callout-caution collapse="false"}
 
-At IAB, some workarounds exist, and currently, I have a solution in progress at FDZ based on a `.Rprofile` file that provides the `fdz_install()` command, which behaves like the standard `install.packages()` command (or should, at least).
+R packages are typically installed from [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html).
+However, the IAB and FDZ servers are isolated from the internet, so standard package installation is not possible.
+The solution: the `{fdzinstall}` package retrieves packages from the internal NEXUS repository (which mirrors the [FAU CRAN instance](https://ftp.fau.de/cran/bin/windows/contrib/)).
 
-The most recent version of the `.Rprofile` file can be found under `N:\Ablagen\D01700-Quickablage\Filser\2025-06_Rprofile.R`. Place the `.Rprofile` file in `C:\Users\*YOUR_USERNAME*\Documents` and restart R (`CTRL + F10`), you should then see a similar message in the console:
+
+**Step 1: Set up the RProfile**
+
+R loads a `.Rprofile` file automatically on startup. 
+For seamless package installation, download the IAB profile for your environment into your Documents folder on a given server:
+  
 ```{r, eval = F}
-----------------------------------------
-IAB-FDZ .Rprofile
-Version 0.6
-----------------------------------------
-- Working directory:                   Z:/Eigene Dateien
-- Default package library:             Z:/R/4-4
-- HOME directory:                      C:\Users\FilserA001.IAB\Documents
-- R_home directory:                    C:/PROGRA~1/R/R-4.4.0
-----------------------------------------
+download.file(url =
+                "https://github.webapp.dst.baintern.de/raw/iab/ToolsAB/refs/heads/master/Rprofiles/iab_profile.R",
+              destfile = paste0(
+                grep(x = list.dirs("C:/Users/", recursive = FALSE),
+                  pattern = Sys.info()["user"],
+                  value = TRUE),
+                "/Documents/.RProfile"
+              ))
 ```
 
-To make matters more comfortable, you can run this code once to copy the .Rprofile from my Quickablage into your Documents folder on the server you're working on:
+
+
+Restart R after downloading ({{< fa keyboard >}} `CTRL + F10`). You should see a welcome message confirming the profile is loaded.
+
+**Step 2: get`fdzinstall()`**
+  
+  Run this once to set up the package:
+  
 ```{r, eval = F}
-file.copy(from = "N:/Ablagen/D01700-Quickablage/Filser/2025-06_Rprofile.R",
-          to   = paste0(
-                    dir(path = "C:/Users/",
-                        pattern = Sys.getenv("USERNAME"), # find correct User-Folder on C:
-                        full.names = T),
-                    "/Documents/.Rprofile"
-                    )
-          )
+install.packages(
+  "https://github.webapp.dst.baintern.de/iab/ToolsAB/raw/master/fdzinstall_R/fdzinstall_1.2.tar.gz",
+  repos = NULL,
+  type = "source"
+)
+
+library(fdzinstall)
 ```
 
-[**How to use Rproj to ensure reproducibilty**](#reproducibility)
+`fdzinstall()` works just like `install.packages()`:
 
-<!-- [More about RProfile](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf) -->
+```{r, eval = F}
+fdzinstall("tidyverse")
+```
+
+The IAB `.Rprofile`  handles packages automatically and redirects the package location on IAB servers to the Z:-drive: `Z:/R/<major>-<minor>` (e.g., `Z:/R/4-4`).
+
+To check where R looks for installed packages, we can use the `.libPaths()` command:
+```{r , eval=F}
+.libPaths()
+```
+
 
 :::
 
@@ -388,7 +405,8 @@ dat1 %>% filter(studs > 10000) %>% select(uni)
 
 :::{.callout-tip}
 
-The shortcut for `%>%` is STRG+SHIFT+m (cmd+shift+m on Mac)
+
+The shortcut for `%>%` is <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>m</kbd> (Windows)  or <kbd>⌘</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> (Mac)
 
 :::
 

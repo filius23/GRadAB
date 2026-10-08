@@ -24,6 +24,13 @@ div.orbox {
   background-color: #FDEBD0;
   border: dashed 3px #FAD7A0;
 }
+
+/*code im callout-block scrollbar */
+.callout .sourceCode {
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
 /* -----------div tips------------- */
 
 div.note {
@@ -50,8 +57,11 @@ div.inter {
 
 
 
+  /*white-space: pre-wrap;*/
 .cell-output code {
-  white-space: pre-wrap;
+  white-space: nowrap;
   border: .5px solid grey;
   padding: 1em;
+  overflow-x: auto;
+  word-break: normal;
 }
