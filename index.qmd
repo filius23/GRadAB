@@ -1,0 +1,27 @@
+# Welcome! {#index .unnumbered}
+
+```{r indx, include=F}
+library(kableExtra)
+library(tidyverse)
+source("00_libpath.R")
+```
+
+Introduction to R for GradAB and IAB people.
+
+<!-- ![](./pic/00_frontpage_iab2.png){width="490"} -->
+
+
+```{r main, echo = F, out.height="70%",out.width="70%", fig.align="center"}
+knitr::include_graphics("./pic/01_frontpage_iab2.png")
+```
+
+
+## Course dates {.unnumbered}
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+
+{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 558
+
+{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 433
+
+:::
