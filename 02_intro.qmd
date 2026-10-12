@@ -275,7 +275,23 @@ However, the IAB and FDZ servers are isolated from the internet, so standard pac
 The solution: the `{fdzinstall}` package retrieves packages from the internal NEXUS repository (which mirrors the [FAU CRAN instance](https://ftp.fau.de/cran/bin/windows/contrib/)).
 
 
-**Step 1: Set up the RProfile**
+
+**Step 1: get`fdzinstall()`**
+  
+  Run this once to set up the package:
+  
+```{r, eval = F}
+install.packages(
+  "https://github.webapp.dst.baintern.de/iab/ToolsAB/raw/master/fdzinstall_R/fdzinstall_1.2.tar.gz",
+  repos = NULL,
+  type = "source"
+)
+
+library(fdzinstall)
+```
+
+
+**Step 2: Set up the RProfile**
 
 R loads a `.Rprofile` file automatically on startup. 
 For seamless package installation, download the IAB profile for your environment into your Documents folder on a given server:
@@ -291,25 +307,18 @@ download.file(url =
               ))
 ```
 
+Restart R after downloading ({{< fa keyboard >}} `CTRL + F10`). You should see a welcome message confirming the profile is loaded:
 
-
-Restart R after downloading ({{< fa keyboard >}} `CTRL + F10`). You should see a welcome message confirming the profile is loaded.
-
-**Step 2: get`fdzinstall()`**
-  
-  Run this once to set up the package:
-  
 ```{r, eval = F}
-install.packages(
-  "https://github.webapp.dst.baintern.de/iab/ToolsAB/raw/master/fdzinstall_R/fdzinstall_1.2.tar.gz",
-  repos = NULL,
-  type = "source"
-)
-
-library(fdzinstall)
+----------------------------------------
+IAB .Rprofile
+Version 1.0
+use fdzinstall() to install packages
+See https://github.webapp.dst.baintern.de/iab/ToolsAB more info
 ```
 
-`fdzinstall()` works just like `install.packages()`:
+**Step 3: use `fdzinstall()` to install R packages**
+After this setup, `fdzinstall()` works just like `install.packages()`:
 
 ```{r, eval = F}
 fdzinstall("tidyverse")
