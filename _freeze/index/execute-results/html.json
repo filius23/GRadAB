@@ -1,8 +1,8 @@
 {
-  "hash": "176c0669cca3d3ae72771c9e7d112f14",
+  "hash": "6723e4587da1fc0b7ac35c24d4f42a51",
   "result": {
     "engine": "knitr",
-    "markdown": "# Welcome! {#index .unnumbered}\n\n\n\nIntroduction to R for GradAB and IAB people.\n\n<!-- ![](./pic/00_frontpage_iab2.png){width=\"490\"} -->\n\n\n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](./pic/01_frontpage_iab2.png){fig-align='center' width=70% height=70%}\n:::\n:::\n\n\n\n## Course dates {.unnumbered}\n\n::: {.g-col-12 .g-col-sm-6 .g-col-md-4}\n\n{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 558\n\n{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 433\n\n:::\n",
+    "markdown": "# Welcome! {#index .unnumbered}\n\n\n\nThis is the new (permanent)[^intro1] home of my course script introducing GradAB and IAB colleagues to R, with a focus on the IAB server environment and their special challenges when installing packages and ensuring reproducibility.\n\n[^intro1]: Permanent is relative, of course - what really is forever?\n \n\n::: {.cell layout-align=\"center\"}\n::: {.cell-output-display}\n![](./pic/01_frontpage_iab2.png){fig-align='center' width=70% height=70%}\n:::\n:::\n\n\nI update the script for each new course to keep everything current with server requirements, \nhelper functions, and R package versions.\n\n### Course dates {.unnumbered}\n\n::: {.g-col-12 .g-col-sm-6 .g-col-md-4}\n\n{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 433\n\n{{< fa calendar-alt >}} &ensp; 28.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 558\n\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

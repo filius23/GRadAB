@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#vs." id="toc-vs." class="nav-link active" data-scroll-target="#vs."><code>%&gt;%</code> vs.&nbsp;<code>|&gt;</code></a></li>
+  <li><a href="#vs." id="toc-vs." class="nav-link active" data-scroll-target="#vs."><code>|&gt;</code> vs.&nbsp;<code>|&gt;</code></a></li>
   <li><a href="#anonymfun" id="toc-anonymfun" class="nav-link" data-scroll-target="#anonymfun">Anonymous Functions: <code>.x</code> vs.&nbsp;<code>\(x)</code></a></li>
   <li><a href="#introductions-to-r" id="toc-introductions-to-r" class="nav-link" data-scroll-target="#introductions-to-r">Introductions to R</a></li>
   <li><a href="#rmarkdown" id="toc-rmarkdown" class="nav-link" data-scroll-target="#rmarkdown">RMarkdown</a>
@@ -272,10 +272,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="vs." class="level2">
-<h2 class="anchored" data-anchor-id="vs."><code>%&gt;%</code> vs.&nbsp;<code>|&gt;</code></h2>
-<p>In this course, we have used the pipe <code>%&gt;%</code> from <code>{tidyverse}</code> (technically from the <code>{magrittr}</code> package). With the update to R 4.1, a pipe <code>|&gt;</code> was also introduced in base R, and help pages and other resources are slowly but surely replacing <code>%&gt;%</code> with <code>|&gt;</code>. For (almost) all applications we’ve learned, both pipes behave identically. Since older R versions are still installed at the IAB, we have stuck to the ‘old version’. However, there’s nothing wrong with switching to <code>|&gt;</code> after an update—or simply sticking with <code>%&gt;%</code>.</p>
+<h2 class="anchored" data-anchor-id="vs."><code>|&gt;</code> vs.&nbsp;<code>|&gt;</code></h2>
+<p>In this course, we have used the pipe <code>|&gt;</code> from <code>{tidyverse}</code> (technically from the <code>{magrittr}</code> package). With the update to R 4.1, a pipe <code>|&gt;</code> was also introduced in base R, and help pages and other resources are slowly but surely replacing <code>|&gt;</code> with <code>|&gt;</code>. For (almost) all applications we’ve learned, both pipes behave identically. Since older R versions are still installed at the IAB, we have stuck to the ‘old version’. However, there’s nothing wrong with switching to <code>|&gt;</code> after an update—or simply sticking with <code>|&gt;</code>.</p>
 <p><img src="./pic/pipe.png" class="img-fluid" width="490"></p>
-<p>You can find more about the differences <a href="https://r4ds.hadley.nz/workflow-pipes.html#vs">here</a> between the two pipes. Additionally, <a href="https://kpress.dev/blog/2022-06-19-replacing-the-magrittr-pipe-with-native-r-pipe/">this blog post</a> offers a good overview of the pitfalls when switching from <code>%&gt;%</code> to <code>|&gt;</code>.</p>
+<p>You can find more about the differences <a href="https://r4ds.hadley.nz/workflow-pipes.html#vs">here</a> between the two pipes. Additionally, <a href="https://kpress.dev/blog/2022-06-19-replacing-the-magrittr-pipe-with-native-r-pipe/">this blog post</a> offers a good overview of the pitfalls when switching from <code>|&gt;</code> to <code>|&gt;</code>.</p>
 </section>
 <section id="anonymfun" class="level2">
 <h2 class="anchored" data-anchor-id="anonymfun">Anonymous Functions: <code>.x</code> vs.&nbsp;<code>\(x)</code></h2>
@@ -283,15 +283,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From the <a href="https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/#documentation"><code>{purrr}</code> release notes for version 1.0.0</a> (December 2022): <em>We believe that it’s better to use these new base tools because they work everywhere: the base pipe doesn’t require that you load magrittr and the new function shorthand works everywhere, not just in purrr functions. Additionally, being able to specify the argument name for the anonymous function can often lead to clearer code.</em></p>
 <p>Accordingly, the application in <code>across()</code> would look like this:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./data/BIBBBAuA_2018_suf1.0.dta"</span>,<span class="at">n_max =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(F1450_04,F1450_05,F1450_06) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./data/BIBBBAuA_2018_suf1.0.dta"</span>,<span class="at">n_max =</span> <span class="dv">16</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(F1450_04,F1450_05,F1450_06) <span class="sc">|&gt;</span> </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># formula syntax</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"F1450"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x)))</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># anonymous function shorthand</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> </span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"F1450"</span>), \(x) <span class="fu">mean</span>(x) ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In this script, I have relied on the previous ‘formula syntax’ notation, as most help pages currently still use this syntax.</p>

@@ -6,14 +6,15 @@ project:
   # output-file: pdf_doc
   # 
 book:
-  title: "IAB R Crash Course 2026"
+  title: "Using R at IAB"
+  subtitle: "GradAB R Crash Course 2026"
   author: "Andreas Filser"
   date: last-modified
   chapters:
     - index.qmd
     - 01_intro.qmd
     - 02_intro.qmd
-    - 03_desc.qmd
+    - 03_tables.qmd
     - 04_data_wrangle.qmd
     - 07_viz_translated.qmd
     - 09_reg.qmd
@@ -33,7 +34,7 @@ book:
   # downloads: [pdf]
   page-footer:
    center: |
-      All content {{< fa brands creative-commons >}} 2024-26 by [Andreas Filser](https://afilser.netlify.app/)<br>
+      All content {{< fa brands creative-commons >}} 2023-26 by [Andreas Filser](https://afilser.netlify.app/)<br>
       [CC Lizenz mit Namensnennung {{< fa brands creative-commons >}}
       {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-nc >}}](https://creativecommons.org/licenses/by-nc/4.0/)<br>
       Created using {{< fa brands r-project >}}, Code [can be viewed here {{< fa brands github >}}](https://github.com/filius23/GRadAB)

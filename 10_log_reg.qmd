@@ -21,7 +21,7 @@ colorhex <- NA #"#FCF9F0FF"7
 # pend10 <- haven::read_dta("D:/Datenspeicher/BIBB_BAuA/BIBBBAuA_2018_suf1.0.dta",col_select = c("S1","F605","F518_SUF","m1202","zpalter")) 
 pend10_lab <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",n_max = 1)
 # pend10 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-#                           col_select = c("pnr","welle","zpsex","famstand","palter","PAS0400")) %>% 
+#                           col_select = c("pnr","welle","zpsex","famstand","palter","PAS0400")) |> 
 #   mutate(across(everything(),~ifelse(.x<0,NA,.x)))
 
 theme_x <- 
@@ -68,11 +68,11 @@ Die 1 steht dabei jeweils für "ja", die `2` für "nein". Wir verändern die Cod
 
 ```{r}
 pend10 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                          col_select = c("pnr","welle","zpsex","famstand","palter","PSM0100")) %>% 
+                          col_select = c("pnr","welle","zpsex","famstand","palter","PSM0100")) |> 
   mutate(across(everything(),~ifelse(.x<0,NA,.x)),
          soc_med = 2- PSM0100)
 
-pend10 %>% count(soc_med,PSM0100)
+pend10 |> count(soc_med,PSM0100)
 ```
 
 ## Das logistische Regressionsmodell {#logmod}
@@ -125,7 +125,7 @@ avg_slopes(m2)
 ```
     
 ```{r ameInline,echo=F }
-mx <- avg_slopes(m2, by = TRUE) %>% data.frame() %>% pull(estimate)
+mx <- avg_slopes(m2, by = TRUE) |> data.frame() |> pull(estimate)
 ```
 
 ::: inter
@@ -146,8 +146,8 @@ Das können wir in einem `ggplot()` grafisch darstellen:
 ```{r}
 #| fig-width: 6
 #| fig-height: 4
-predictions(m2, newdata = datagrid(palter  = 18:65)) %>% # vorhergesagte Werte
-  data.frame() %>% 
+predictions(m2, newdata = datagrid(palter  = 18:65)) |> # vorhergesagte Werte
+  data.frame() |> 
   ggplot(aes(y = estimate , x = palter)) + 
   geom_errorbar(aes(ymin = conf.low, ymax= conf.high), color = "slateblue",width = .1) + # konfidenzintervalle
   geom_point(color = "slateblue") + # punktschätzer
@@ -176,10 +176,10 @@ avg_slopes(fe_log1,by = TRUE, variables = "palter")
 ```{r}
 #| eval: false
 pend10 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                          col_select = c("pnr","welle","zpsex","palter","PAS0400")) %>% 
+                          col_select = c("pnr","welle","zpsex","palter","PAS0400")) |> 
   mutate(across(everything(),~ifelse(.x<0,NA,.x)),
          zpsex_fct = factor(zpsex,levels = 1:2, labels = c("Männer","Frauen")),
-         search = 2- PAS0400) %>% 
+         search = 2- PAS0400) |> 
   filter(!is.na(search))
 ```
 
@@ -268,7 +268,7 @@ Dementsprechend gibt es bei logistischen Regressionen drei Einheiten:
 
 ```{r, echo = F}
 df <- 
-  data.frame(p1 = c(.5,1/3,1/4,1/5,2/3,3/4,1)) %>% 
+  data.frame(p1 = c(.5,1/3,1/4,1/5,2/3,3/4,1)) |> 
   mutate(p = c("$$\\frac{1}{2}$$","$$\\frac{1}{3}$$","$$\\frac{1}{4}$$",
                "$$\\frac{1}{5}$$","$$\\frac{2}{3}$$","$$\\frac{3}{4}$$",
                "$$1$$" ),
@@ -276,26 +276,26 @@ df <-
          odds2 = c("oder 1:1","oder 1:2","oder 1:3","oder 1:5","oder 2:1","oder 3:1","*sicher*"), 
          logodds = round(log(p1/(1-p1)),4))
 
-gt(df[,2:5]) %>% 
+gt(df[,2:5]) |> 
   cols_width(p~px(120),
              odds1 ~ px(200),
              logodds ~ px(200),
-             everything()  ~ px(100)) %>% 
-  opt_align_table_header(align = c("right")) %>% 
-  cols_align(align = "right",columns = everything()) %>% 
-  cols_align(align = c("right"),columns = logodds) %>% 
+             everything()  ~ px(100)) |> 
+  opt_align_table_header(align = c("right")) |> 
+  cols_align(align = "right",columns = everything()) |> 
+  cols_align(align = c("right"),columns = logodds) |> 
     cols_label(
       p = md('$$P$$'), 
       odds1 = md('$$Odds = \\frac{P}{1-P}$$'),
       odds2 = '',
-      logodds= md('$$Logits = log(Odds)$$')) %>% 
-  fmt_markdown(columns = everything()) %>% 
+      logodds= md('$$Logits = log(Odds)$$')) |> 
+  fmt_markdown(columns = everything()) |> 
   tab_options(heading.title.font.size = "small",
               table.border.top.style = "hidden",
-              table.border.bottom.style = "hidden") %>% 
+              table.border.bottom.style = "hidden") |> 
   tab_style(
     style = "vertical-align:top",
-    locations = cells_title(groups = "title")) %>% 
+    locations = cells_title(groups = "title")) |> 
   tab_options(data_row.padding = px(1))
   
   
@@ -353,11 +353,11 @@ predict(m2, data.frame(palter=c("19.5"=19.5,"20.5"=20.5,"30.5"=30.5,"31.5"=31.5,
 
 Die Differenzen sind immer gleich - entsprechend der Interpretation gehen mit einem um eine Einheit höheren `palter` um `r sprintf("%2.5f",abs(m2$coefficients[2]))` höhere Logits einher, dass die Befragten Social Media verwenden:
 
-+ Steigung bei `palter` = 20: `r sprintf("%2.5f",predict(m2, data.frame(palter=20.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=19.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(19.5,20.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 20.5 - Vorhersage bei 19.5}}
++ Steigung bei `palter` = 20: `r sprintf("%2.5f",predict(m2, data.frame(palter=20.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=19.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(19.5,20.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 20.5 - Vorhersage bei 19.5}}
 
-+ Steigung bei `palter` = 31: `r sprintf("%2.5f",predict(m2, data.frame(palter=31.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=30.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(30.5,31.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 56.5 - Vorhersage bei 30.5}}
++ Steigung bei `palter` = 31: `r sprintf("%2.5f",predict(m2, data.frame(palter=31.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=30.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(30.5,31.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 56.5 - Vorhersage bei 30.5}}
 
-+ Steigung bei `palter` = 45: `r sprintf("%2.5f",predict(m2, data.frame(palter=55.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=54.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(54.5,55.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 55.5 - Vorhersage bei 54.5}}
++ Steigung bei `palter` = 45: `r sprintf("%2.5f",predict(m2, data.frame(palter=55.5)))` $-$ `r sprintf("%2.5f",predict(m2, data.frame(palter=54.5)))` = `r sprintf("%2.5f",predict(m2, data.frame(palter=c(54.5,55.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 55.5 - Vorhersage bei 54.5}}
 
 Wenn wir uns diese Schritte aber jeweils für die vorhergesagten Wahrscheinlichkeiten ansehen, sieht das aber anders aus:
 
@@ -368,11 +368,11 @@ predict(m2, data.frame(palter=c("19.5"=19.5,"20.5"=20.5,"30.5"=30.5,"31.5"=31.5,
 
 Hier werden die Differenzen mit zunehmendem `palter` immer kleiner:
 
-+ Steigung bei `palter` = 20: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=20.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=19.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(19.5,20.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 20.5 - Vorhersage bei 19.5}}
++ Steigung bei `palter` = 20: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=20.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=19.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(19.5,20.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 20.5 - Vorhersage bei 19.5}}
 
-+ Steigung bei `palter` = 31: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=31.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=30.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(30.5,31.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 31.5 - Vorhersage bei 30.5}}
++ Steigung bei `palter` = 31: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=31.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=30.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(30.5,31.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 31.5 - Vorhersage bei 30.5}}
 
-+ Steigung bei `palter` = 55: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=55.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=54.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(54.5,55.5))) %>% diff(.) )`  \quad\textsf{\small{Vorhersage bei 55.5 - Vorhersage bei 54.5}}
++ Steigung bei `palter` = 55: `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=55.5)))` $-$ `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=54.5)))` = `r sprintf("%2.5f",predict(m2,type="response", data.frame(palter=c(54.5,55.5))) |> diff(.) )`  \quad\textsf{\small{Vorhersage bei 55.5 - Vorhersage bei 54.5}}
 
 
 
@@ -383,7 +383,7 @@ Hier werden die Differenzen mit zunehmendem `palter` immer kleiner:
 df3 <- tibble(x1 = m2$data$palter[!is.na(m2$data$soc_med)],
               y.logit = m2$fitted.values,
               me = margins::margins(m2)$dydx_palter, # steigung
-              ) %>%
+              ) |>
   mutate(y.p = exp(y.logit)/(1+exp(y.logit)),
          y = ifelse(y.logit>0,1,0),
          pred.p = predict(m2,data.frame(palter = x1), type = "response"), # vorhergesagte Wkt-Werte: y-Werte für Scatterplot
@@ -398,10 +398,10 @@ df3 <- tibble(x1 = m2$data$palter[!is.na(m2$data$soc_med)],
   )
 highlight2 <- c(55,75)
 set.seed(2224)
-df3_small <- df3 %>% slice_sample(n=75) 
+df3_small <- df3 |> slice_sample(n=75) 
 
 la16_zoom <- 
-      ggplot(df3_small %>% filter(between(x1,highlight2[1],highlight2[2])) %>% distinct(x1,.keep_all = T), 
+      ggplot(df3_small |> filter(between(x1,highlight2[1],highlight2[2])) |> distinct(x1,.keep_all = T), 
              aes(x = x1 , y = pred.l)) + 
         geom_segment(aes(x=x1-.5,xend=x1+.5,y=pred.l-.5*m2$coefficients[2],yend=pred.l+.5*m2$coefficients[2]),
                      size = .5,
@@ -427,7 +427,7 @@ la16_zoom <-
   theme(plot.title = element_text(hjust=.5,size = 15))
 
 la13_inset <- 
-    ggplot(df3 %>% distinct(x1,.keep_all = T), aes(x = x1 , y = pred.l)) + 
+    ggplot(df3 |> distinct(x1,.keep_all = T), aes(x = x1 , y = pred.l)) + 
       geom_point(color = lacroix_palette("PeachPear", type = "discrete")[6],size = .35) +
       geom_rect(data = filter(df3, x1 %in% highlight2),
                 aes(xmin= min(x1) - (max(x1)-min(x1))/10, 
@@ -448,7 +448,7 @@ la16_zoom + inset_element(la13_inset, left = 0.6, bottom = 0.6, right = 1, top =
 ```{r AME2,echo=F, fig.align='center', fig.height=4.15, fig.caption=T}
 #| warning: false
 pa16_zoom <- 
-ggplot(df3_small %>% filter(between(x1,highlight2[1],highlight2[2])) %>% distinct(x1,.keep_all = T), 
+ggplot(df3_small |> filter(between(x1,highlight2[1],highlight2[2])) |> distinct(x1,.keep_all = T), 
        aes(x = x1 , y = pred.p)) + 
   geom_segment(aes(x=x1-.5,xend=x1+.5,y=me_min,yend=me_max),color = paletteer_d("dutchmasters::milkmaid")[4], size = .5) +
   geom_segment(aes(x=x1+.5,xend=x1+.5,y=me_min,yend=me_max),color = paletteer_d("dutchmasters::milkmaid")[8], size = .5,
@@ -456,7 +456,7 @@ ggplot(df3_small %>% filter(between(x1,highlight2[1],highlight2[2])) %>% distinc
                arrow = arrow(length = unit(0.015, "npc"))) +
   geom_segment(aes(x=x1-.5,xend=x1+.5,y=me_min,yend=me_min), color = paletteer_d("dutchmasters::milkmaid")[8], size = .5) +
   geom_point(color = "#FF3200", size =2 ) + #paletteer_d("dutchmasters::milkmaid")[6],size = 2) +
-  geom_text_repel(aes(label = me %>% round(.,5)),
+  geom_text_repel(aes(label = me |> round(.,5)),
                   nudge_x = 2,
                   direction = "x",
                   segment.colour = NA,
@@ -467,7 +467,7 @@ ggplot(df3_small %>% filter(between(x1,highlight2[1],highlight2[2])) %>% distinc
         plot.subtitle = element_text(hjust=.5)) +
   expand_limits(x = c(highlight2+2)) 
 
-p.a16 <- ggplot(df3 %>% distinct(x1,.keep_all = T), aes(x = x1 , y = pred.p)) + 
+p.a16 <- ggplot(df3 |> distinct(x1,.keep_all = T), aes(x = x1 , y = pred.p)) + 
             geom_point(color =  "#FF3200",size = .35) + #paletteer_d("dutchmasters::milkmaid")[6],size = .35) +
             geom_rect(data = filter(df3, x1 %in% highlight2),
                       aes(xmin= min(x1) - (max(x1)-min(x1))/10, 

@@ -435,7 +435,7 @@ var1         1.838966  0.7727028  2.3799139 0.05477457</code></pre>
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="create-a-new-data-frame"><span class="header-section-number">6.2.1</span> Create a New Data Frame</h3>
 <p>We can keep multiple <code>data.frame</code> objects in memory in R. Thus, we can easily create a new <code>data.frame</code> containing only observations with <code>var2 &lt; 20</code> and use this for our <code>lm()</code> command:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat1_u20 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(var2 <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dat1_u20 <span class="ot">&lt;-</span> dat1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(var2 <span class="sc">&lt;</span> <span class="dv">20</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>m2a <span class="ot">&lt;-</span> <span class="fu">lm</span>(var2 <span class="sc">~</span> var1, <span class="at">data =</span> dat1_u20)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -462,12 +462,12 @@ F-statistic: 2.967 on 1 and 5 DF,  p-value: 0.1456</code></pre>
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="filter-directly-in-lm"><span class="header-section-number">6.2.2</span> Filter Directly in <code>lm()</code></h3>
 <p>We can also incorporate the <code>filter()</code> command directly into the <code>data=</code> argument of <code>lm()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m2b <span class="ot">&lt;-</span> <span class="fu">lm</span>(var2 <span class="sc">~</span> var1, <span class="at">data =</span> dat1 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(var2 <span class="sc">&lt;</span> <span class="dv">20</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m2b <span class="ot">&lt;-</span> <span class="fu">lm</span>(var2 <span class="sc">~</span> var1, <span class="at">data =</span> dat1 <span class="sc">|&gt;</span> <span class="fu">filter</span>(var2 <span class="sc">&lt;</span> <span class="dv">20</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = var2 ~ var1, data = dat1 %&gt;% filter(var2 &lt; 20))
+lm(formula = var2 ~ var1, data = filter(dat1, var2 &lt; 20))
 
 Residuals:
       1       2       3       4       5       6       7 
@@ -989,7 +989,7 @@ F-statistic: 2.335 on 3 and 3 DF,  p-value: 0.2521</code></pre>
 <h2 data-number="6.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">6.7</span> Exercises</h2>
 <p>Use the following subset of the PASS CampusFile:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pend_ue08 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pend_ue08 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(welle <span class="sc">==</span> <span class="dv">13</span>, netges <span class="sc">&gt;</span> <span class="dv">0</span>, azges1 <span class="sc">&gt;</span> <span class="dv">0</span>, schul2 <span class="sc">&gt;</span> <span class="dv">1</span>, palter <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="reg1" class="level3" data-number="6.7.1">
@@ -1542,7 +1542,7 @@ F-statistic: 2.335 on 3 and 3 DF,  p-value: 0.2521</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat1, <span class="fu">aes</span>(<span class="at">x =</span> var1, <span class="at">y =</span> var2)) <span class="sc">+</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)  <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> . <span class="sc">%&gt;%</span> <span class="fu">filter</span>(var2 <span class="sc">&gt;</span> <span class="dv">20</span>), <span class="fu">aes</span>(<span class="at">y =</span> var2 <span class="sc">+</span> <span class="dv">3</span>, <span class="at">label =</span> id), <span class="at">color =</span> <span class="st">"sienna1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> <span class="cf">function</span>(x) x<span class="sc">|&gt;</span> <span class="fu">filter</span>(var2 <span class="sc">&gt;</span> <span class="dv">20</span>), <span class="fu">aes</span>(<span class="at">y =</span> var2 <span class="sc">+</span> <span class="dv">3</span>, <span class="at">label =</span> id), <span class="at">color =</span> <span class="st">"sienna1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -1553,7 +1553,7 @@ F-statistic: 2.335 on 3 and 3 DF,  p-value: 0.2521</code></pre>
 </div>
 <p>We can also specify <code>geom_</code> for just a subset by reassigning <code>data =</code> (not using the selection from the main <code>ggplot()</code> command) and applying a <code>filter()</code>. Additionally, we shift the label slightly above the point with <code>var2 + 3</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> dat1 <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">matches</span>(<span class="st">"compl"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="ot">&lt;-</span> dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">matches</span>(<span class="st">"compl"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="pred" class="level3" data-number="6.8.2">
@@ -1761,7 +1761,7 @@ BP = 3.6069, df = 2, p-value = 0.1647</code></pre>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(car)</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>pendx <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>,<span class="at">n_max =</span> <span class="dv">300</span>)  <span class="sc">%&gt;%</span> <span class="fu">filter</span>(netges <span class="sc">&gt;</span><span class="dv">0</span>, palter <span class="sc">&gt;</span><span class="dv">0</span> )</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>pendx <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>,<span class="at">n_max =</span> <span class="dv">300</span>)  <span class="sc">|&gt;</span> <span class="fu">filter</span>(netges <span class="sc">&gt;</span><span class="dv">0</span>, palter <span class="sc">&gt;</span><span class="dv">0</span> )</span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>mox <span class="ot">&lt;-</span> <span class="fu">lm</span>(netges <span class="sc">~</span> palter <span class="sc">+</span> azges1, <span class="at">data=</span>pendx)</span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(mox)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1811,8 +1811,8 @@ m4   |    lm | 0.700 |     0.400</code></pre>
 2 ed_fctmedium     7.17      8.08     0.887   0.425    -15.3      29.6
 3 ed_fcthigh      -1.5       8.85    -0.170   0.874    -26.1      23.1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m3, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_replace</span>(term, <span class="st">"ed_fct"</span>, <span class="st">"Education: "</span>)) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(m3, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_replace</span>(term, <span class="st">"ed_fct"</span>, <span class="st">"Education: "</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> term, <span class="at">x =</span> estimate)) <span class="sc">+</span></span>
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="dv">0</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"navy"</span>) <span class="sc">+</span></span>
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> conf.low, <span class="at">xmax  =</span> conf.high), <span class="at">height =</span> .<span class="dv">1</span>) <span class="sc">+</span> </span>

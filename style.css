@@ -59,7 +59,7 @@ div.inter {
 
   /*white-space: pre-wrap;*/
 .cell-output code {
-  white-space: nowrap;
+  white-space: pre-wrap;
   border: .5px solid grey;
   padding: 1em;
   overflow-x: auto;

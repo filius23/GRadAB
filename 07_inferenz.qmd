@@ -11,7 +11,7 @@ if(Sys.getenv("USERNAME") == "filse" ) source("00_libpath.R")
 library(tidyverse)
 
 pend_kap7 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                         col_select = c("pnr","welle","palter","zpsex","azges1","statakt")) %>% 
+                         col_select = c("pnr","welle","palter","zpsex","azges1","statakt")) |> 
   mutate(across(everything(), ~ifelse(.x < 0,NA,.x)) )
 ```
 
@@ -104,15 +104,15 @@ Die Gewichte für den Personendatz des PASS CampusFiles sind im Datensatz `pweig
 wgt_df <- haven::read_dta("./orig/pweights_cf_W13.dta")
 head(wgt_df)
 
-pend_kap7w <- pend_kap7 %>% left_join(wgt_df, by = join_by(pnr,welle))
+pend_kap7w <- pend_kap7 |> left_join(wgt_df, by = join_by(pnr,welle))
 ```
 
 
 Die einfachste Variante für eine Gewichtung ist die Option  `wt=` in `count()`:
 ```{r}
-pend_kap7w %>% 
+pend_kap7w |> 
   count(zpsex,statakt)
-pend_kap7w %>% 
+pend_kap7w |> 
   count(zpsex,statakt,wt = wqp)
 ```
 
@@ -127,7 +127,7 @@ Zunächst verwenden wir `svydesign()`, um die Gewichtung festzulegen.
 Im weiteren stellt [`{survey}`](https://stylizeddata.com/how-to-use-survey-weights-in-r/) dann zahlreiche Funktionen zur Verfügung, die eine gewichtete Variante der basis-Befehle sind - bspw. `svymean()` und `svytable()`:
 ```{r}
 #| include: false
-pend_kap7w %>% summarise(mean = weighted.mean(palter,w = wqp))
+pend_kap7w |> summarise(mean = weighted.mean(palter,w = wqp))
 ```
 
 ```{r}
@@ -160,7 +160,7 @@ Für [Regressionsmodelle](#reg) gibt es bspw. `survey::svyglm()`
 
 ```{r}
 pend_ue7 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                            col_select = c("pnr","welle","zpsex","palter","netges")) %>% 
+                            col_select = c("pnr","welle","zpsex","palter","netges")) |> 
   mutate(across(everything(), ~ifelse(.x < 0,NA,.x))) # missings  mit NA überschreiben
 ```
 
@@ -177,7 +177,7 @@ Berechnen Sie die Korrelation zwischen Alter (`palter`) und Einkommen (`netges`)
 wgt_df <- haven::read_dta("./orig/pweights_cf_W13.dta")
 head(wgt_df)
 
-pend_ue7 <- pend_ue7 %>% left_join(wgt_df, by = join_by(pnr,welle))
+pend_ue7 <- pend_ue7 |> left_join(wgt_df, by = join_by(pnr,welle))
 ```
 
 + Legen Sie die Gewichtung auf Basis von `wqp` an.

@@ -95,7 +95,7 @@ ggplot(lan17) +
     labs(title = "Federal States by Area Status 2017") +
     theme_void()
 
-ggplot(lan17 %>% filter(GF==4)) + 
+ggplot(lan17 |> filter(GF==4)) + 
     geom_sf(size = .1)  +
     labs(title = "Federal States by Area Status 2017") +
     theme_void()
@@ -117,20 +117,23 @@ head(alo_df)
 #| include: false
 library(rvest)
 bwle <- "https://de.wikipedia.org/wiki/Liste_der_deutschen_Bundesl%C3%A4nder_nach_Arbeitslosenquote"
-  a3 <- read_html(bwle) %>% html_table() %>% .[[3]] %>% data.frame()
+html <- read_html(bwle)
+tabellen <- html_table(html)
+a3 <- data.frame(tabellen[[3]])
+
 ax <- 
-  a3 %>% 
-    janitor::clean_names() %>% 
-    separate(land,into = c("name","name2","name3"), sep = "[[:punct:]]+") %>% 
+  a3 |> 
+    janitor::clean_names() |> 
+    separate(land,into = c("name","name2","name3"), sep = "[[:punct:]]+") |> 
     mutate(name = ifelse(is.na(name3),name, glue::glue("{name}-{name3}"))
            )
 
 
-strsplit(ax$name, split="[^[:alnum:]]+") %>% unlist()
+strsplit(ax$name, split="[^[:alnum:]]+") |> unlist()
   
-  ax$name %>% 
-  stringi::stri_trans_general(.,"latin-ascii") %>% 
-  strsplit(., split="[^A-Za-z0-9 -]+") %>% unlist()
+  ax$name |> 
+  stringi::stri_trans_general(str=_,"latin-ascii") |> 
+  strsplit(x=_, split="[^A-Za-z0-9 -]+") |> unlist()
 
    unlist(strsplit(ax$name, split="\\w+"))
    
@@ -143,12 +146,12 @@ data.frame()
 We can now join the `alo_df` data to the `lan17` shapefile using a [`left_join()`](#join).
 ```{r}
 #| eval: false
-lan17 %>% filter(GF==4) %>% left_join(alo_df,by = join_by("AGS"=="ags"))
+lan17 |> filter(GF==4) |> left_join(alo_df,by = join_by("AGS"=="ags"))
 ```
 
 ```{r}
-lan17 %>% filter(GF==4) %>% left_join(alo_df,by = join_by("AGS"=="ags")) %>% 
-  select(AGS,GEN,alq) %>% 
+lan17 |> filter(GF==4) |> left_join(alo_df,by = join_by("AGS"=="ags")) |> 
+  select(AGS,GEN,alq) |> 
   head()
 ```
 
@@ -157,9 +160,9 @@ The syntax for the actual plot is then similar to any other `ggplot()` - with `f
 #| fig-height: 4
 #| fig-width: 5
 library(scico)
-lan17 %>% 
-  filter(GF==4) %>% 
-  left_join(alo_df,by = join_by("AGS"=="ags")) %>% 
+lan17 |> 
+  filter(GF==4) |> 
+  left_join(alo_df,by = join_by("AGS"=="ags")) |> 
   ggplot() + 
       geom_sf(size = .1, aes(fill = alq))  +
       labs(title = "Unemployment Rate for Federal States",
@@ -175,9 +178,9 @@ We can use the familiar `{dplyr}` functions to amend the sf data.
 Here's are rather silly example how to combine Saxony, Saxony-Anhalt and Thuringa into one unit:
 ```{r}
 lan17_15länder <- 
-  lan17 %>% 
-  filter(GF==4) %>%
-  mutate(newid = case_when(as.numeric(AGS)>13 ~ "17",  TRUE ~ AGS)) %>% # same ID for SN, SA, TH
+  lan17 |> 
+  filter(GF==4) |>
+  mutate(newid = case_when(as.numeric(AGS)>13 ~ "17",  TRUE ~ AGS)) |> # same ID for SN, SA, TH
   summarise(geometry = st_union(geometry),.by = newid) # summarise -> combine based on newid
   
 ggplot(lan17_15länder) + 

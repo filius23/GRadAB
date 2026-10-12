@@ -99,7 +99,7 @@ If we want to recalculate the model, we have two options:
 We can keep multiple `data.frame` objects in memory in R. Thus, we can easily create a new `data.frame` containing only observations with `var2 < 20` and use this for our `lm()` command:
 
 ```{r ols2}
-dat1_u20 <- dat1 %>% filter(var2 < 20)
+dat1_u20 <- dat1 |> filter(var2 < 20)
 m2a <- lm(var2 ~ var1, data = dat1_u20)
 summary(m2a)
 ```
@@ -109,7 +109,7 @@ summary(m2a)
 We can also incorporate the `filter()` command directly into the `data=` argument of `lm()`:
 
 ```{r ols2a}
-m2b <- lm(var2 ~ var1, data = dat1 %>% filter(var2 < 20))
+m2b <- lm(var2 ~ var1, data = dat1 |> filter(var2 < 20))
 summary(m2b)
 ```
 
@@ -273,7 +273,7 @@ For all of these metric, see the [`{marginaleffects}`](https://marginaleffects.c
 
 Use the following subset of the PASS CampusFile:
 ```{r, echo = T, eval=FALSE}
-pend_ue08 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta") %>% 
+pend_ue08 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta") |> 
   filter(welle == 13, netges > 0, azges1 > 0, schul2 > 1, palter > 0)
 ```
 
@@ -296,19 +296,19 @@ pend_ue08 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta") %>%
 library(gt)
 
   haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                col_select = c("schul2"), n_max = 1) %>% 
-  map_dfr(., ~attributes(.x)$labels, .id = "var") %>% 
-  pivot_longer(-var) %>%
-  pivot_wider(names_from = value, values_from = name) %>% 
-  select(matches("^2|^3|^4|^5|^6|^7")) %>% 
-  pivot_longer(everything(), names_to = "value", values_to = "label") %>% 
-  distinct()  %>% 
-  mutate(value = glue::glue("`{value}`")) %>% 
-  gt() %>% 
-  tab_options(table.font.size = 14) %>% 
-  cols_align(align = "left",columns = value) %>% 
+                col_select = c("schul2"), n_max = 1) |> 
+  map_dfr( ~attributes(.x)$labels, .id = "var") |> 
+  pivot_longer(-var) |>
+  pivot_wider(names_from = value, values_from = name) |> 
+  select(matches("^2|^3|^4|^5|^6|^7")) |> 
+  pivot_longer(everything(), names_to = "value", values_to = "label") |> 
+  distinct()  |> 
+  mutate(value = glue::glue("`{value}`")) |> 
+  gt() |> 
+  tab_options(table.font.size = 14) |> 
+  cols_align(align = "left",columns = value) |> 
   cols_width(value ~ px(80),
-             value ~ px(40)) %>% 
+             value ~ px(40)) |> 
   fmt_markdown(columns = value) 
 ```
 
@@ -356,14 +356,14 @@ Here, it appears we have an outlier. In our small dataset, it is easy to find. I
 ggplot(dat1, aes(x = var1, y = var2)) + 
   geom_point(size = 2) + 
   geom_smooth(method = "lm")  +
-  geom_text(data = . %>% filter(var2 > 20), aes(y = var2 + 3, label = id), color = "sienna1")
+  geom_text(data = function(x) x|> filter(var2 > 20), aes(y = var2 + 3, label = id), color = "sienna1")
 ```
 
 We can also specify `geom_` for just a subset by reassigning `data =` (not using the selection from the main `ggplot()` command) and applying a `filter()`. Additionally, we shift the label slightly above the point with `var2 + 3`.
 
 
 ```{r}
-dat1 <- dat1 %>% select(-matches("compl"))
+dat1 <- dat1 |> select(-matches("compl"))
 ```
 
 ```{r}
@@ -490,7 +490,7 @@ install.packages("car")
 #| message: false
 #| warning: false
 # library(car)
-pendx <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",n_max = 300)  %>% filter(netges >0, palter >0 )
+pendx <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",n_max = 300)  |> filter(netges >0, palter >0 )
 mox <- lm(netges ~ palter + azges1, data=pendx)
 car::vif(mox)
 ```
@@ -523,8 +523,8 @@ compare_performance(m1, m4, metrics = c("R2", "R2_adj"))
 library(broom) ## already loaded as part of the tidyverse
 tidy(m3, conf.int = TRUE)
 
-tidy(m3, conf.int = TRUE) %>% 
-  mutate(term = str_replace(term, "ed_fct", "Education: ")) %>% 
+tidy(m3, conf.int = TRUE) |> 
+  mutate(term = str_replace(term, "ed_fct", "Education: ")) |> 
   ggplot(aes(y = term, x = estimate)) +
   geom_vline(aes(xintercept = 0), linetype = "dashed", color = "navy") +
   geom_errorbarh(aes(xmin = conf.low, xmax  = conf.high), height = .1) + 

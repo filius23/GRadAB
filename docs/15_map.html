@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_desc.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_tables.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Getting an Overview</span></span></a>
   </div>
 </li>
@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">size =</span> .<span class="dv">1</span>)  <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Federal States by Area Status 2017"</span>) <span class="sc">+</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lan17 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lan17 <span class="sc">|&gt;</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>)) <span class="sc">+</span> </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">size =</span> .<span class="dv">1</span>)  <span class="sc">+</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Federal States by Area Status 2017"</span>) <span class="sc">+</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -334,11 +334,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can now join the <code>alo_df</code> data to the <code>lan17</code> shapefile using a <a href="05_merge_pivot.html#join"><code>left_join()</code></a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">|&gt;</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AGS,GEN,alq) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">|&gt;</span> <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AGS,GEN,alq) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 6 features and 3 fields
@@ -360,9 +360,9 @@ Projected CRS: ETRS89 / UTM zone 32N
 <p>The syntax for the actual plot is then similar to any other <code>ggplot()</code> - with <code>fill =</code> we can specify a fill color and with <code>scale_fill_...</code> we can choose a color palette:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scico)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lan17 <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(alo_df,<span class="at">by =</span> <span class="fu">join_by</span>(<span class="st">"AGS"</span><span class="sc">==</span><span class="st">"ags"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_sf</span>(<span class="at">size =</span> .<span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">fill =</span> alq))  <span class="sc">+</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Unemployment Rate for Federal States"</span>,</span>
@@ -383,9 +383,9 @@ Projected CRS: ETRS89 / UTM zone 32N
 <p>We can use the familiar <code>{dplyr}</code> functions to amend the sf data. Here’s are rather silly example how to combine Saxony, Saxony-Anhalt and Thuringa into one unit:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lan17_15länder <span class="ot">&lt;-</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  lan17 <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">newid =</span> <span class="fu">case_when</span>(<span class="fu">as.numeric</span>(AGS)<span class="sc">&gt;</span><span class="dv">13</span> <span class="sc">~</span> <span class="st">"17"</span>,  <span class="cn">TRUE</span> <span class="sc">~</span> AGS)) <span class="sc">%&gt;%</span> <span class="co"># same ID for SN, SA, TH</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  lan17 <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GF<span class="sc">==</span><span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">newid =</span> <span class="fu">case_when</span>(<span class="fu">as.numeric</span>(AGS)<span class="sc">&gt;</span><span class="dv">13</span> <span class="sc">~</span> <span class="st">"17"</span>,  <span class="cn">TRUE</span> <span class="sc">~</span> AGS)) <span class="sc">|&gt;</span> <span class="co"># same ID for SN, SA, TH</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">geometry =</span> <span class="fu">st_union</span>(geometry),<span class="at">.by =</span> newid) <span class="co"># summarise -&gt; combine based on newid</span></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lan17_15länder) <span class="sc">+</span> </span>
@@ -831,7 +831,7 @@ Projected CRS: ETRS89 / UTM zone 32N
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>All content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2024-26 by <a href="https://afilser.netlify.app/">Andreas Filser</a><br> <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC Lizenz mit Namensnennung <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i></a><br> Created using <i class="fa-brands fa-r-project" aria-label="r-project"></i>, Code <a href="https://github.com/filius23/GRadAB">can be viewed here <i class="fa-brands fa-github" aria-label="github"></i></a></p>
+<p>All content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2023-26 by <a href="https://afilser.netlify.app/">Andreas Filser</a><br> <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC Lizenz mit Namensnennung <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i></a><br> Created using <i class="fa-brands fa-r-project" aria-label="r-project"></i>, Code <a href="https://github.com/filius23/GRadAB">can be viewed here <i class="fa-brands fa-github" aria-label="github"></i></a></p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

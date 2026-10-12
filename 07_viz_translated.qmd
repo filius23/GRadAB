@@ -15,7 +15,7 @@ knitr::opts_chunk$set(message = F,warning = F,highlight = "#<<",cache = T,
 library(haven)
 pend <- read_dta("./orig/PENDDAT_cf_W13.dta")
 
-tab_df <- xtabs(~zpsex+casmin, data = pend) %>% data.frame()
+tab_df <- xtabs(~zpsex+casmin, data = pend) |> data.frame()
 
 theme_set(new = theme_gray(base_size = 15))
 
@@ -40,12 +40,12 @@ First, let's look at how to create a scatterplot:
 ```{r, out.height= "80%", out.width= "80%", fig.align="center", echo = F}
 #| warning: false
 library(haven)
-pend %>%
-  filter(welle==13) %>% 
+pend |>
+  filter(welle==13) |> 
   mutate(zpsex_fct = factor(zpsex, levels = 1:2, labels = c("Men","Women")),
          palter = ifelse(palter < 0,NA,palter),
          azges1  = ifelse(azges1 < 0,NA,azges1)
-         ) %>%
+         ) |>
 ggplot(aes(x = palter, y = azges1)) +
   geom_point(aes(color = zpsex_fct)) +
   # facet_grid(~zpsex_fct) +
@@ -62,12 +62,12 @@ library(haven)
 pend <- read_dta("./orig/PENDDAT_cf_W13.dta")
 ```
 ```{r}
-pend %>% select(azges1,zpsex,palter) %>% head()
+pend |> select(azges1,zpsex,palter) |> head()
 ```
 
 To keep the graph manageable, we only use observations from wave 13:
 ```{r}
-pend_small <- pend %>% filter(welle==13)
+pend_small <- pend |> filter(welle==13)
 ```
 
 ...and we'll overwrite all missing values with `NA`. 
@@ -83,9 +83,9 @@ pend_small$azges1[pend_small$azges1<0] <- NA
 ```{r}
 # pend_small$palter[pend_small$palter>100] <- NA 
 # pend_small <-
-#   pend_small %>%
+#   pend_small |>
 #   mutate(across(c("casmin", "PAS0100", "azges1"),  ~ ifelse(.x < 0, NA, .x)))
-pend_small <- pend %>% 
+pend_small <- pend |> 
   filter(welle==13, palter < 100,
          casmin >0 , PAS0100 > 0 , azges1 > 0)
 ```
@@ -282,18 +282,18 @@ Next, we’ll look at a way to visualize the contingency table from [Chapter 2](
 ```{r}
 #| label: "table041"
 pend_small$PD0400[pend_small$PD0400<0] <- NA # exclude missings
-pend_small %>% 
-  count(zpsex, PD0400) %>% 
+pend_small |> 
+  count(zpsex, PD0400) |> 
   filter(!is.na(PD0400))
 ```
 
 With `geom_bar()`, we can create bars by setting the height as the count of observations with `..count..` for y:
 ```{r}
 #| cache: true
-pend_small %>% 
-  count(zpsex, PD0400) %>% 
-  filter(!is.na(PD0400)) %>% 
-  ggplot(data = ., aes(x = as_factor(PD0400), fill = factor(zpsex),
+pend_small |> 
+  count(zpsex, PD0400) |> 
+  filter(!is.na(PD0400)) |> 
+  ggplot(data = _, aes(x = as_factor(PD0400), fill = factor(zpsex),
                        y = n)) +
   geom_col(position = position_dodge()) 
 ```
@@ -305,20 +305,20 @@ To create a bar chart instead of a column chart, simply swap `x` and `y` and adj
 ```{r}
 #| cache: true
 #| layout-ncol: 2
-pend_small %>% 
-  count(zpsex, PD0400) %>% 
-  filter(!is.na(PD0400)) %>% 
-  mutate(pct = prop.table(n), .by = zpsex) %>% 
-  ggplot(data = ., aes(x = as_factor(PD0400), fill = factor(zpsex),
+pend_small |> 
+  count(zpsex, PD0400) |> 
+  filter(!is.na(PD0400)) |> 
+  mutate(pct = prop.table(n), .by = zpsex) |> 
+  ggplot(data = _, aes(x = as_factor(PD0400), fill = factor(zpsex),
                        y = pct )) +
   geom_col(position = position_dodge()) +
   scale_y_continuous(labels = scales::label_percent(accuracy = 1)) 
 # horizontal -> swap x and y axis
-pend_small %>% 
-  count(zpsex, PD0400) %>% 
-  filter(!is.na(PD0400)) %>% 
-  mutate(pct = prop.table(n), .by = zpsex) %>% 
-  ggplot(data = ., aes(y = as_factor(PD0400), fill = factor(zpsex),
+pend_small |> 
+  count(zpsex, PD0400) |> 
+  filter(!is.na(PD0400)) |> 
+  mutate(pct = prop.table(n), .by = zpsex) |> 
+  ggplot(data = _, aes(y = as_factor(PD0400), fill = factor(zpsex),
                        x = pct )) +
   geom_col(position = position_dodge()) +
   scale_x_continuous(labels = scales::label_percent(accuracy = 1)) 
@@ -327,11 +327,11 @@ pend_small %>%
 These charts can also be customized with `scale_...` and labeled in detail using `labs()`—all options are consistent across different types of visualizations. Additionally, we can label the categories ourselves with `breaks =` and `labels =` if we don't like the default labels:
 
 ```{r fullplot}
-pend_small %>% 
-  count(zpsex, PD0400) %>% 
-  filter(!is.na(PD0400)) %>% 
-  mutate(pct = prop.table(n), .by = zpsex) %>% 
-  ggplot(data = ., aes(y = as_factor(PD0400), 
+pend_small |> 
+  count(zpsex, PD0400) |> 
+  filter(!is.na(PD0400)) |> 
+  mutate(pct = prop.table(n), .by = zpsex) |> 
+  ggplot(data = _, aes(y = as_factor(PD0400), 
                        fill = factor(zpsex),
                        x = pct )) +
   geom_col(position = position_dodge()) +
@@ -365,8 +365,8 @@ Use this data set:
 ```{r}
 #| eval: false
 pend_u41 <- 
-  pend %>% 
-  filter(welle == 13, bilzeit > 0, PA0445 > 0) %>% 
+  pend |> 
+  filter(welle == 13, bilzeit > 0, PA0445 > 0) |> 
   mutate(zpsex = factor(zpsex))
 ```
 
@@ -383,7 +383,7 @@ Use this data set:
 ```{r}
 #| eval: false
 pend_u42 <- 
-  pend %>% 
+  pend |> 
   filter(welle == 9, PG1270 > 0) 
 ```
 
@@ -400,7 +400,7 @@ Use this data set:
 ```{r}
 #| eval: false
 pend_u43 <- 
-  pend %>% 
+  pend |> 
   filter(welle == 11, PEO0400c > 0) 
 ```
 
@@ -412,15 +412,15 @@ pend_u43 <-
 library(flextable)
 set_flextable_defaults(font.family = "Red Hat Display", font.color = "grey25", border.color = "grey25", font.size = 8, padding = .75)
 c(attributes(pend$PEO0400c)$labels, 
-  attributes(pend$migration)$labels) %>%
-  enframe(name = "label") %>%
-  filter(value > 0) %>%
-  mutate(Variable = c("`PEO0400c`", rep("", 3), "`migration`", rep("", 3))) %>% 
-  relocate(Variable, value) %>%
-  flextable() %>% 
-  border_remove() %>% 
-  autofit() %>% 
-  padding(j = 2, padding.left = 5, padding.right = 15) %>% 
+  attributes(pend$migration)$labels) |>
+  enframe(name = "label") |>
+  filter(value > 0) |>
+  mutate(Variable = c("`PEO0400c`", rep("", 3), "`migration`", rep("", 3))) |> 
+  relocate(Variable, value) |>
+  flextable() |> 
+  border_remove() |> 
+  autofit() |> 
+  padding(j = 2, padding.left = 5, padding.right = 15) |> 
   align(align = "left", part = "header")
 ```
 

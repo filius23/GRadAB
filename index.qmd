@@ -1,27 +1,28 @@
 # Welcome! {#index .unnumbered}
 
 ```{r indx, include=F}
+source("00_libpath.R")
 library(kableExtra)
 library(tidyverse)
-source("00_libpath.R")
 ```
 
-Introduction to R for GradAB and IAB people.
+This is the new (permanent)[^intro1] home of my course script introducing GradAB and IAB colleagues to R, with a focus on the IAB server environment and their special challenges when installing packages and ensuring reproducibility.
 
-<!-- ![](./pic/00_frontpage_iab2.png){width="490"} -->
-
-
+[^intro1]: Permanent is relative, of course - what really is forever?
+ 
 ```{r main, echo = F, out.height="70%",out.width="70%", fig.align="center"}
 knitr::include_graphics("./pic/01_frontpage_iab2.png")
 ```
 
+I update the script for each new course to keep everything current with server requirements, 
+helper functions, and R package versions.
 
-## Course dates {.unnumbered}
+### Course dates {.unnumbered}
 
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
 
-{{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 558
-
 {{< fa calendar-alt >}} &ensp; 26.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 433
+
+{{< fa calendar-alt >}} &ensp; 28.10.2026 &ensp; {{< fa clock >}} &ensp; 9:00 – 16:00 &ensp; {{< fa location-dot >}} &ensp; EB 558
 
 :::

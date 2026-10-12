@@ -26,7 +26,7 @@ R zeigt den Befehl immer bis zum Fehler an:
 
 ```{r}
 #| error: true
-etb18 <- haven::read_dta("./data/BIBBBAuA_2018_suf1.0.dta",col_select = c("F518_SUF","az","S1","m1202")) %>% 
+etb18 <- haven::read_dta("./data/BIBBBAuA_2018_suf1.0.dta",col_select = c("F518_SUF","az","S1","m1202")) |> 
   mutate(across(dplyr::everything(),~ifelse(.x<0 | .x > 99998, NA, . x)))
 ```
 
@@ -91,12 +91,12 @@ Lösungsvorschläge:
 1. Did you spell the column's name correctly? Maybe you made a typo.
 1. Are you referring to the proper dataset? Maybe you created the variable in `my_data2` but you're trying to access it in `my_data`. 
 1. Does your column name have spaces or other strange characters in it like dashes? If so, in many applications (anywhere you're not treating the column name as a string) you have to surround the column name in backticks (`r "\u0060"`) so it knows where the column name starts and ends.
-1. Did you perhaps drop the column before trying to refer to it? For example, in the below code, the `group_by() %>% summarize()` will only keep columns named in the `group_by()` or in the `summarize()`. So even though the `mpg` column was there at the start, it no longer is by the time we refer to it.
+1. Did you perhaps drop the column before trying to refer to it? For example, in the below code, the `group_by() |> summarize()` will only keep columns named in the `group_by()` or in the `summarize()`. So even though the `mpg` column was there at the start, it no longer is by the time we refer to it.
 
 ```{r, eval = FALSE}
-mtcars %>%
-  group_by(am) %>%
-  summarize(mean_hp = mean(hp)) %>%
+mtcars |>
+  group_by(am) |>
+  summarize(mean_hp = mean(hp)) |>
   mutate(hp_by_mpg = mean_hp/mpg)
 ```
 
@@ -188,7 +188,7 @@ Lösungsvorschläge:
 Commonly, this will cause problems in cases like this:
 
 ```{r, eval = FALSE}
-data %>%
+data |>
   filter(state = "WA")
 ```
 

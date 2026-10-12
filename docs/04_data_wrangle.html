@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./07_viz_translated.html" rel="next">
-<link href="./03_desc.html" rel="prev">
+<link href="./03_desc_test.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -166,7 +166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_desc.html" class="sidebar-item-text sidebar-link">
+  <a href="./03_desc_test.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Getting an Overview</span></span></a>
   </div>
 </li>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="dplyr-mutatenew_var"><span class="header-section-number">4.1.2</span> {dplyr}: <code>mutate(new_var= )</code></h3>
 <p>An alternative way to create variables is using <code>mutate(new_variable = )</code> from <code>{dplyr}</code> (<code>{tidyverse}</code>):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">studs_to_mean =</span> studs <span class="sc">-</span> <span class="fu">mean</span>(studs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">studs_to_mean =</span> studs <span class="sc">-</span> <span class="fu">mean</span>(studs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht gegr                uni studs_to_mean
 1 14954   250      FALSE 1971          FH Aachen      -11721.2
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>You can also create multiple variables within a single <code>mutate()</code> command:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">studs_to_mean =</span> studs <span class="sc">-</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">profs_to_mean =</span> profs <span class="sc">-</span> <span class="fu">mean</span>(profs)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -364,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Or variables can be reused within <code>mutate()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">rel_to_mean =</span> studs <span class="sc">-</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">above_mean =</span> rel_to_mean <span class="sc">&gt;</span> <span class="dv">0</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -391,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To keep the results, store them in an object:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat4 <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>dat4 <span class="ot">&lt;-</span> dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">rel_to_mean =</span> studs <span class="sc">-</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">above_mean =</span> rel_to_mean <span class="sc">&gt;</span> <span class="dv">0</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <p>You can convert logical variables into numeric dummy variables (0/1) using <code>as.numeric()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">prom_dummy =</span> <span class="fu">as.numeric</span>(prom_recht),</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">over10k =</span> <span class="fu">as.numeric</span>(studs <span class="sc">&gt;</span> <span class="dv">10000</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -443,16 +443,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The true power of <code>mutate()</code> becomes apparent when combined with other <code>{dplyr}</code> functions. A common task in data preparation involves grouped values.</p>
 <p>We’ll make our example dataset a bit smaller:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> dat3 <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="ot">&lt;-</span> dat3 <span class="sc">|&gt;</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>uni,<span class="sc">-</span>gegr) <span class="co"># to ensure everything is visible</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Since <code>{dplyr}</code> version 1.1.1, we can specify a grouping directly in <code>mutate()</code> using the <code>.by=</code> argument. This <code>.by=</code> grouping is applied only to the immediate calculations within <code>mutate()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs =</span> <span class="fu">mean</span>(studs),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">|&gt;</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs2 =</span> <span class="fu">mean</span>(studs),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">.by =</span> prom_recht) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">.by =</span> prom_recht) <span class="sc">|&gt;</span> </span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_profs2 =</span> <span class="fu">mean</span>(profs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht m_studs m_profs m_studs2 m_profs2
@@ -465,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Using <code>summarise()</code> instead of <code>mutate()</code> provides an overview:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">m_studs =</span> <span class="fu">mean</span>(studs),<span class="at">.by =</span> prom_recht)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prom_recht m_studs
@@ -487,10 +487,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container callout-body">
 <p>Before <code>{dplyr}</code> 1.1.1, grouping a dataset relied on <code>group_by()</code>. After setting <code>group_by()</code> along the values of a variable, all subsequent <code>mutate()</code> calculations are performed only within those groups:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs =</span> <span class="fu">mean</span>(studs),</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prom_recht) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prom_recht) <span class="sc">|&gt;</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs2 =</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs2 =</span> <span class="fu">mean</span>(profs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -507,12 +507,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>After using <code>group_by()</code>, it’s good practice to remove the grouping with <code>ungroup()</code> once it’s no longer needed:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>dat5 <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs =</span> <span class="fu">mean</span>(studs),</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prom_recht) <span class="sc">%&gt;%</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs2 =</span> <span class="fu">mean</span>(studs)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">m_profs =</span> <span class="fu">mean</span>(profs)) <span class="sc">|&gt;</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(prom_recht) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_studs2 =</span> <span class="fu">mean</span>(studs)) <span class="sc">|&gt;</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m_profs2 =</span> <span class="fu">mean</span>(profs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 7
@@ -534,7 +534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="4.3" class="anchored" data-anchor-id="across"><span class="header-section-number">4.3</span> <code>across()</code>: Processing Multiple Variables</h2>
 <p>A highly versatile addition to <code>mutate()</code> and <code>summarise()</code> is <code>across()</code>. This allows us to apply a function to multiple columns simultaneously, without repeating code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">studs =</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">profs =</span> <span class="fu">mean</span>(profs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -544,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here, <code>across()</code> offers a much shorter syntax for variable selection, and we can use <a href="./02_intro.html#selecthelpers"><code>?select_helpers</code></a> like <code>matches()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">matches</span>(<span class="st">"studs|profs"</span>),<span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    studs profs
@@ -553,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This is also compatible with <code>.by=</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x)), <span class="at">.by=</span> prom_recht)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prom_recht   studs    profs
@@ -572,23 +572,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To do so, let’s examine three satisfaction variables for respondents in rows 12-16:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="hxruucctuj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hxruucctuj table {
+<div id="szfjhykoqx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#szfjhykoqx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hxruucctuj thead, #hxruucctuj tbody, #hxruucctuj tfoot, #hxruucctuj tr, #hxruucctuj td, #hxruucctuj th {
+#szfjhykoqx thead, #szfjhykoqx tbody, #szfjhykoqx tfoot, #szfjhykoqx tr, #szfjhykoqx td, #szfjhykoqx th {
   border-style: none;
 }
 
-#hxruucctuj p {
+#szfjhykoqx p {
   margin: 0;
   padding: 0;
 }
 
-#hxruucctuj .gt_table {
+#szfjhykoqx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -614,12 +614,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_caption {
+#szfjhykoqx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hxruucctuj .gt_title {
+#szfjhykoqx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -631,7 +631,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#hxruucctuj .gt_subtitle {
+#szfjhykoqx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -643,7 +643,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#hxruucctuj .gt_heading {
+#szfjhykoqx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -655,13 +655,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_bottom_border {
+#szfjhykoqx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_col_headings {
+#szfjhykoqx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -676,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_col_heading {
+#szfjhykoqx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -696,7 +696,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#hxruucctuj .gt_column_spanner_outer {
+#szfjhykoqx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -708,15 +708,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#hxruucctuj .gt_column_spanner_outer:first-child {
+#szfjhykoqx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hxruucctuj .gt_column_spanner_outer:last-child {
+#szfjhykoqx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hxruucctuj .gt_column_spanner {
+#szfjhykoqx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -728,11 +728,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#hxruucctuj .gt_spanner_row {
+#szfjhykoqx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hxruucctuj .gt_group_heading {
+#szfjhykoqx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -758,7 +758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#hxruucctuj .gt_empty_group_heading {
+#szfjhykoqx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -773,15 +773,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#hxruucctuj .gt_from_md > :first-child {
+#szfjhykoqx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hxruucctuj .gt_from_md > :last-child {
+#szfjhykoqx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hxruucctuj .gt_row {
+#szfjhykoqx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -800,7 +800,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#hxruucctuj .gt_stub {
+#szfjhykoqx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -813,7 +813,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hxruucctuj .gt_stub_row_group {
+#szfjhykoqx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -827,15 +827,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#hxruucctuj .gt_row_group_first td {
+#szfjhykoqx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hxruucctuj .gt_row_group_first th {
+#szfjhykoqx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hxruucctuj .gt_summary_row {
+#szfjhykoqx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -845,16 +845,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hxruucctuj .gt_first_summary_row {
+#szfjhykoqx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_first_summary_row.thick {
+#szfjhykoqx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hxruucctuj .gt_last_summary_row {
+#szfjhykoqx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -864,7 +864,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_grand_summary_row {
+#szfjhykoqx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -874,7 +874,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hxruucctuj .gt_first_grand_summary_row {
+#szfjhykoqx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -884,7 +884,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_last_grand_summary_row_top {
+#szfjhykoqx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -894,11 +894,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_striped {
+#szfjhykoqx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hxruucctuj .gt_table_body {
+#szfjhykoqx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -907,7 +907,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_footnotes {
+#szfjhykoqx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -921,7 +921,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_footnote {
+#szfjhykoqx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -930,7 +930,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hxruucctuj .gt_sourcenotes {
+#szfjhykoqx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -944,7 +944,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#hxruucctuj .gt_sourcenote {
+#szfjhykoqx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -952,72 +952,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#hxruucctuj .gt_left {
+#szfjhykoqx .gt_left {
   text-align: left;
 }
 
-#hxruucctuj .gt_center {
+#szfjhykoqx .gt_center {
   text-align: center;
 }
 
-#hxruucctuj .gt_right {
+#szfjhykoqx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hxruucctuj .gt_font_normal {
+#szfjhykoqx .gt_font_normal {
   font-weight: normal;
 }
 
-#hxruucctuj .gt_font_bold {
+#szfjhykoqx .gt_font_bold {
   font-weight: bold;
 }
 
-#hxruucctuj .gt_font_italic {
+#szfjhykoqx .gt_font_italic {
   font-style: italic;
 }
 
-#hxruucctuj .gt_super {
+#szfjhykoqx .gt_super {
   font-size: 65%;
 }
 
-#hxruucctuj .gt_footnote_marks {
+#szfjhykoqx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hxruucctuj .gt_asterisk {
+#szfjhykoqx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hxruucctuj .gt_indent_1 {
+#szfjhykoqx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hxruucctuj .gt_indent_2 {
+#szfjhykoqx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hxruucctuj .gt_indent_3 {
+#szfjhykoqx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hxruucctuj .gt_indent_4 {
+#szfjhykoqx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hxruucctuj .gt_indent_5 {
+#szfjhykoqx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hxruucctuj .katex-display {
+#szfjhykoqx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hxruucctuj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#szfjhykoqx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1056,23 +1056,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell-output-display">
-<div id="glkduwgphd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#glkduwgphd table {
+<div id="lgcclujeam" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lgcclujeam table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#glkduwgphd thead, #glkduwgphd tbody, #glkduwgphd tfoot, #glkduwgphd tr, #glkduwgphd td, #glkduwgphd th {
+#lgcclujeam thead, #lgcclujeam tbody, #lgcclujeam tfoot, #lgcclujeam tr, #lgcclujeam td, #lgcclujeam th {
   border-style: none;
 }
 
-#glkduwgphd p {
+#lgcclujeam p {
   margin: 0;
   padding: 0;
 }
 
-#glkduwgphd .gt_table {
+#lgcclujeam .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1098,12 +1098,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-left-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_caption {
+#lgcclujeam .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#glkduwgphd .gt_title {
+#lgcclujeam .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1115,7 +1115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-width: 0;
 }
 
-#glkduwgphd .gt_subtitle {
+#lgcclujeam .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1127,7 +1127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-width: 0;
 }
 
-#glkduwgphd .gt_heading {
+#lgcclujeam .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1139,13 +1139,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_bottom_border {
+#lgcclujeam .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_col_headings {
+#lgcclujeam .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1160,7 +1160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_col_heading {
+#lgcclujeam .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1180,7 +1180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#glkduwgphd .gt_column_spanner_outer {
+#lgcclujeam .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1192,15 +1192,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 4px;
 }
 
-#glkduwgphd .gt_column_spanner_outer:first-child {
+#lgcclujeam .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#glkduwgphd .gt_column_spanner_outer:last-child {
+#lgcclujeam .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#glkduwgphd .gt_column_spanner {
+#lgcclujeam .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1212,11 +1212,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   width: 100%;
 }
 
-#glkduwgphd .gt_spanner_row {
+#lgcclujeam .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#glkduwgphd .gt_group_heading {
+#lgcclujeam .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1242,7 +1242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   text-align: left;
 }
 
-#glkduwgphd .gt_empty_group_heading {
+#lgcclujeam .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1257,15 +1257,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: middle;
 }
 
-#glkduwgphd .gt_from_md > :first-child {
+#lgcclujeam .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#glkduwgphd .gt_from_md > :last-child {
+#lgcclujeam .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#glkduwgphd .gt_row {
+#lgcclujeam .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1284,7 +1284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   overflow-x: hidden;
 }
 
-#glkduwgphd .gt_stub {
+#lgcclujeam .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1297,7 +1297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#glkduwgphd .gt_stub_row_group {
+#lgcclujeam .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1311,15 +1311,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   vertical-align: top;
 }
 
-#glkduwgphd .gt_row_group_first td {
+#lgcclujeam .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#glkduwgphd .gt_row_group_first th {
+#lgcclujeam .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#glkduwgphd .gt_summary_row {
+#lgcclujeam .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1329,16 +1329,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#glkduwgphd .gt_first_summary_row {
+#lgcclujeam .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_first_summary_row.thick {
+#lgcclujeam .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#glkduwgphd .gt_last_summary_row {
+#lgcclujeam .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1348,7 +1348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_grand_summary_row {
+#lgcclujeam .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1358,7 +1358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#glkduwgphd .gt_first_grand_summary_row {
+#lgcclujeam .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1368,7 +1368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-top-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_last_grand_summary_row_top {
+#lgcclujeam .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1378,11 +1378,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_striped {
+#lgcclujeam .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#glkduwgphd .gt_table_body {
+#lgcclujeam .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1391,7 +1391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-bottom-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_footnotes {
+#lgcclujeam .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1405,7 +1405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_footnote {
+#lgcclujeam .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1414,7 +1414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#glkduwgphd .gt_sourcenotes {
+#lgcclujeam .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1428,7 +1428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   border-right-color: #D3D3D3;
 }
 
-#glkduwgphd .gt_sourcenote {
+#lgcclujeam .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1436,72 +1436,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   padding-right: 5px;
 }
 
-#glkduwgphd .gt_left {
+#lgcclujeam .gt_left {
   text-align: left;
 }
 
-#glkduwgphd .gt_center {
+#lgcclujeam .gt_center {
   text-align: center;
 }
 
-#glkduwgphd .gt_right {
+#lgcclujeam .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#glkduwgphd .gt_font_normal {
+#lgcclujeam .gt_font_normal {
   font-weight: normal;
 }
 
-#glkduwgphd .gt_font_bold {
+#lgcclujeam .gt_font_bold {
   font-weight: bold;
 }
 
-#glkduwgphd .gt_font_italic {
+#lgcclujeam .gt_font_italic {
   font-style: italic;
 }
 
-#glkduwgphd .gt_super {
+#lgcclujeam .gt_super {
   font-size: 65%;
 }
 
-#glkduwgphd .gt_footnote_marks {
+#lgcclujeam .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#glkduwgphd .gt_asterisk {
+#lgcclujeam .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#glkduwgphd .gt_indent_1 {
+#lgcclujeam .gt_indent_1 {
   text-indent: 5px;
 }
 
-#glkduwgphd .gt_indent_2 {
+#lgcclujeam .gt_indent_2 {
   text-indent: 10px;
 }
 
-#glkduwgphd .gt_indent_3 {
+#lgcclujeam .gt_indent_3 {
   text-indent: 15px;
 }
 
-#glkduwgphd .gt_indent_4 {
+#lgcclujeam .gt_indent_4 {
   text-indent: 20px;
 }
 
-#glkduwgphd .gt_indent_5 {
+#lgcclujeam .gt_indent_5 {
   text-indent: 25px;
 }
 
-#glkduwgphd .katex-display {
+#lgcclujeam .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#glkduwgphd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#lgcclujeam div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1534,11 +1534,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>pend <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>sat_small <span class="ot">&lt;-</span> </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  pend <span class="sc">%&gt;%</span> </span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(welle <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"PEO0300(a|b|c)"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    haven<span class="sc">::</span><span class="fu">zap_labels</span>() <span class="sc">%&gt;%</span> haven<span class="sc">::</span><span class="fu">zap_label</span>() <span class="co"># remove labels</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  pend <span class="sc">|&gt;</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(welle <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"PEO0300(a|b|c)"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice</span>(<span class="dv">12</span><span class="sc">:</span><span class="dv">16</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    haven<span class="sc">::</span><span class="fu">zap_labels</span>() <span class="sc">|&gt;</span> haven<span class="sc">::</span><span class="fu">zap_label</span>() <span class="co"># remove labels</span></span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>sat_small</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -1552,11 +1552,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="ot">&lt;-</span> sat_small <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),<span class="sc">~</span><span class="fu">as.numeric</span>(.x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="ot">&lt;-</span> sat_small <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(),<span class="sc">~</span><span class="fu">as.numeric</span>(.x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Sometimes we want to process multiple variables in the same way. Above, we saw how to handle this with <a href="#across"><code>across()</code></a> for existing functions. But what if we want to perform a calculation that isn’t as simple as applying <code>mean()</code>, <code>sd()</code>, etc.?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dmean_PEO0300a =</span> PEO0300a <span class="sc">-</span> <span class="fu">mean</span>(PEO0300a,<span class="at">na.rm =</span> T),</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">dmean_PEO0300c =</span> PEO0300c <span class="sc">-</span> <span class="fu">mean</span>(PEO0300c,<span class="at">na.rm =</span> T))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1608,7 +1608,7 @@ $PEO0300c
 </div>
 <p><code>map()</code> from <code>{purrr}</code> is an alternative to <code>lapply</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> <span class="fu">map</span>(<span class="sc">~</span><span class="fu">dtomean</span>(.x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> <span class="fu">map</span>(<span class="sc">~</span><span class="fu">dtomean</span>(.x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$PEO0300a
 [1]  0.6 -0.4 -0.4  0.6 -0.4
@@ -1622,7 +1622,7 @@ $PEO0300c
 </div>
 <p>This <em>formula syntax</em> can also be found in <code>across()</code> - additionally, with <code>.names =</code> we have the option to modify the variable names for the results:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> </span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"PEO0300"</span>),<span class="sc">~</span><span class="fu">dtomean</span>(.x)) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
@@ -1652,9 +1652,9 @@ $PEO0300c
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>pend_small <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>,</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">col_select =</span> <span class="fu">c</span>(<span class="st">"welle"</span>,<span class="st">"zpsex"</span>,<span class="st">"PEO0400a"</span>,<span class="st">"PEO0400b"</span>,<span class="st">"PEO0400c"</span>,<span class="st">"PEO0400d"</span>)</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                               ) <span class="sc">%&gt;%</span> </span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">zap_labels</span>() <span class="sc">%&gt;%</span> <span class="co"># drop labels to have a clean data.frame</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(welle <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                               ) <span class="sc">|&gt;</span> </span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  haven<span class="sc">::</span><span class="fu">zap_labels</span>() <span class="sc">|&gt;</span> <span class="co"># drop labels to have a clean data.frame</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(welle <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
@@ -1664,23 +1664,23 @@ $PEO0300c
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<div id="hwfltrutio" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hwfltrutio table {
+<div id="jldhtohwzu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jldhtohwzu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hwfltrutio thead, #hwfltrutio tbody, #hwfltrutio tfoot, #hwfltrutio tr, #hwfltrutio td, #hwfltrutio th {
+#jldhtohwzu thead, #jldhtohwzu tbody, #jldhtohwzu tfoot, #jldhtohwzu tr, #jldhtohwzu td, #jldhtohwzu th {
   border-style: none;
 }
 
-#hwfltrutio p {
+#jldhtohwzu p {
   margin: 0;
   padding: 0;
 }
 
-#hwfltrutio .gt_table {
+#jldhtohwzu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1706,12 +1706,12 @@ $PEO0300c
   border-left-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_caption {
+#jldhtohwzu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hwfltrutio .gt_title {
+#jldhtohwzu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1723,7 +1723,7 @@ $PEO0300c
   border-bottom-width: 0;
 }
 
-#hwfltrutio .gt_subtitle {
+#jldhtohwzu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1735,7 +1735,7 @@ $PEO0300c
   border-top-width: 0;
 }
 
-#hwfltrutio .gt_heading {
+#jldhtohwzu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1747,13 +1747,13 @@ $PEO0300c
   border-right-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_bottom_border {
+#jldhtohwzu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_col_headings {
+#jldhtohwzu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1768,7 +1768,7 @@ $PEO0300c
   border-right-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_col_heading {
+#jldhtohwzu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1788,7 +1788,7 @@ $PEO0300c
   overflow-x: hidden;
 }
 
-#hwfltrutio .gt_column_spanner_outer {
+#jldhtohwzu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1800,15 +1800,15 @@ $PEO0300c
   padding-right: 4px;
 }
 
-#hwfltrutio .gt_column_spanner_outer:first-child {
+#jldhtohwzu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hwfltrutio .gt_column_spanner_outer:last-child {
+#jldhtohwzu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hwfltrutio .gt_column_spanner {
+#jldhtohwzu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1820,11 +1820,11 @@ $PEO0300c
   width: 100%;
 }
 
-#hwfltrutio .gt_spanner_row {
+#jldhtohwzu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hwfltrutio .gt_group_heading {
+#jldhtohwzu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1850,7 +1850,7 @@ $PEO0300c
   text-align: left;
 }
 
-#hwfltrutio .gt_empty_group_heading {
+#jldhtohwzu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1865,15 +1865,15 @@ $PEO0300c
   vertical-align: middle;
 }
 
-#hwfltrutio .gt_from_md > :first-child {
+#jldhtohwzu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hwfltrutio .gt_from_md > :last-child {
+#jldhtohwzu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hwfltrutio .gt_row {
+#jldhtohwzu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1892,7 +1892,7 @@ $PEO0300c
   overflow-x: hidden;
 }
 
-#hwfltrutio .gt_stub {
+#jldhtohwzu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1905,7 +1905,7 @@ $PEO0300c
   padding-right: 5px;
 }
 
-#hwfltrutio .gt_stub_row_group {
+#jldhtohwzu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1919,15 +1919,15 @@ $PEO0300c
   vertical-align: top;
 }
 
-#hwfltrutio .gt_row_group_first td {
+#jldhtohwzu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hwfltrutio .gt_row_group_first th {
+#jldhtohwzu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hwfltrutio .gt_summary_row {
+#jldhtohwzu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1937,16 +1937,16 @@ $PEO0300c
   padding-right: 5px;
 }
 
-#hwfltrutio .gt_first_summary_row {
+#jldhtohwzu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_first_summary_row.thick {
+#jldhtohwzu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hwfltrutio .gt_last_summary_row {
+#jldhtohwzu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1956,7 +1956,7 @@ $PEO0300c
   border-bottom-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_grand_summary_row {
+#jldhtohwzu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1966,7 +1966,7 @@ $PEO0300c
   padding-right: 5px;
 }
 
-#hwfltrutio .gt_first_grand_summary_row {
+#jldhtohwzu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1976,7 +1976,7 @@ $PEO0300c
   border-top-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_last_grand_summary_row_top {
+#jldhtohwzu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1986,11 +1986,11 @@ $PEO0300c
   border-bottom-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_striped {
+#jldhtohwzu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hwfltrutio .gt_table_body {
+#jldhtohwzu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1999,7 +1999,7 @@ $PEO0300c
   border-bottom-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_footnotes {
+#jldhtohwzu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2013,7 +2013,7 @@ $PEO0300c
   border-right-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_footnote {
+#jldhtohwzu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2022,7 +2022,7 @@ $PEO0300c
   padding-right: 5px;
 }
 
-#hwfltrutio .gt_sourcenotes {
+#jldhtohwzu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2036,7 +2036,7 @@ $PEO0300c
   border-right-color: #D3D3D3;
 }
 
-#hwfltrutio .gt_sourcenote {
+#jldhtohwzu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2044,72 +2044,72 @@ $PEO0300c
   padding-right: 5px;
 }
 
-#hwfltrutio .gt_left {
+#jldhtohwzu .gt_left {
   text-align: left;
 }
 
-#hwfltrutio .gt_center {
+#jldhtohwzu .gt_center {
   text-align: center;
 }
 
-#hwfltrutio .gt_right {
+#jldhtohwzu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hwfltrutio .gt_font_normal {
+#jldhtohwzu .gt_font_normal {
   font-weight: normal;
 }
 
-#hwfltrutio .gt_font_bold {
+#jldhtohwzu .gt_font_bold {
   font-weight: bold;
 }
 
-#hwfltrutio .gt_font_italic {
+#jldhtohwzu .gt_font_italic {
   font-style: italic;
 }
 
-#hwfltrutio .gt_super {
+#jldhtohwzu .gt_super {
   font-size: 65%;
 }
 
-#hwfltrutio .gt_footnote_marks {
+#jldhtohwzu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hwfltrutio .gt_asterisk {
+#jldhtohwzu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hwfltrutio .gt_indent_1 {
+#jldhtohwzu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hwfltrutio .gt_indent_2 {
+#jldhtohwzu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hwfltrutio .gt_indent_3 {
+#jldhtohwzu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hwfltrutio .gt_indent_4 {
+#jldhtohwzu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hwfltrutio .gt_indent_5 {
+#jldhtohwzu .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hwfltrutio .katex-display {
+#jldhtohwzu .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hwfltrutio div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jldhtohwzu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2161,7 +2161,7 @@ $PEO0300c
 <li>Standardize the variables <code>PEO0400a</code> - <code>PEO0400d</code> from <code>pend_small</code> using the following pattern:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pend_small <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>pend_small <span class="sc">|&gt;</span> </span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">std_PEO0400b =</span> (PEO0400b <span class="sc">-</span> <span class="fu">mean</span>(PEO0400b,<span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(PEO0400b,<span class="at">na.rm =</span> T))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
@@ -2197,7 +2197,7 @@ $PEO0300c
 <li>Standardize the variables <code>PEO0400a</code> - <code>PEO0400d</code> from <code>pend_small</code> using the following pattern:</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>pend_small <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>pend_small <span class="sc">|&gt;</span> </span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">std_PEO0400b =</span> (PEO0400b <span class="sc">-</span> <span class="fu">mean</span>(PEO0400b,<span class="at">na.rm =</span> T))<span class="sc">/</span><span class="fu">sd</span>(PEO0400b,<span class="at">na.rm =</span> T))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
@@ -2213,7 +2213,7 @@ $PEO0300c
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="across"><span class="header-section-number">4.6.1</span> <code>across()</code>: Processing Multiple Variables</h3>
 <p>A highly versatile addition to <code>mutate()</code> and <code>summarise()</code> is <code>across()</code>. This allows us to apply a function to multiple columns simultaneously, without repeating code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">studs =</span> <span class="fu">mean</span>(studs),</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">profs =</span> <span class="fu">mean</span>(profs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2223,7 +2223,7 @@ $PEO0300c
 </div>
 <p>Here, <code>across()</code> offers a much shorter syntax for variable selection, and we can use <a href="./02_intro.html#selecthelpers"><code>?select_helpers</code></a> like <code>matches()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">matches</span>(<span class="st">"studs|profs"</span>),<span class="at">.fns =</span> <span class="sc">~</span><span class="fu">mean</span>(.x)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    studs profs
@@ -2232,7 +2232,7 @@ $PEO0300c
 </div>
 <p>This is also compatible with <code>.by=</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>), <span class="sc">~</span><span class="fu">mean</span>(.x)), <span class="at">.by=</span> prom_recht)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prom_recht   studs    profs
@@ -2242,7 +2242,7 @@ $PEO0300c
 </div>
 <p>We can apply multiple functions by placing them in a <code>list()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>), <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span><span class="fu">mean</span>(.x), <span class="at">sd =</span> <span class="sc">~</span><span class="fu">sd</span>(.x))), <span class="at">.by=</span> prom_recht)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prom_recht studs_mean studs_sd profs_mean profs_sd
@@ -2254,7 +2254,7 @@ $PEO0300c
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>wert_liste <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">MEAN =</span> <span class="sc">~</span><span class="fu">mean</span>(.x), <span class="at">SD =</span> <span class="sc">~</span><span class="fu">sd</span>(.x))</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>), wert_liste), <span class="at">.by=</span> prom_recht)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prom_recht studs_MEAN studs_SD profs_MEAN profs_SD
@@ -2264,7 +2264,7 @@ $PEO0300c
 </div>
 <p>The <code>.names()</code> argument allows us to control the naming of columns. <code>{.fn}</code> stands for the function being applied, and <code>{.col}</code> represents the name of the variable being processed.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>), </span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                   wert_liste,</span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.names =</span> <span class="st">"{.fn}_{.col}"</span>),</span>
@@ -2277,7 +2277,7 @@ $PEO0300c
 </div>
 <p>All these functions also work with <code>mutate()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"studs|profs"</span>),</span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>                wert_liste, </span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">.names =</span> <span class="st">"{.col}XX{.fn}"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2307,7 +2307,7 @@ $PEO0300c
 <h4 data-number="4.6.2.1" class="anchored" data-anchor-id="ifelse"><span class="header-section-number">4.6.2.1</span> <code>ifelse()</code></h4>
 <p><code>ifelse()</code> is a great help for all recoding tasks: we formulate a condition and if it is met, the first value is used; if not, the second value is used. Here we check whether <code>studs-mean(studs)</code> is greater than <code>0</code> - if so, <code>above</code> is used, otherwise <code>below</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">rel_to_mean =</span> studs<span class="sc">-</span><span class="fu">mean</span>(studs),</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">rel_to_mean =</span> studs<span class="sc">-</span><span class="fu">mean</span>(studs),</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">ab_mean_lab =</span> <span class="fu">ifelse</span>(rel_to_mean <span class="sc">&gt;</span> <span class="dv">0</span>,<span class="st">"above"</span>,<span class="st">"below"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht gegr                uni rel_to_mean ab_mean_lab
@@ -2321,16 +2321,16 @@ $PEO0300c
 <p>This can be helpful to replace negative values with <code>NA</code>, for example in the PASS data:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"./orig/PENDDAT_cf_W13.dta"</span>,</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">col_select =</span> <span class="fu">c</span>(<span class="st">"palter"</span>,<span class="st">"PEO0400a"</span>,<span class="st">"PEO0400b"</span>,<span class="st">"PEO0400c"</span>,<span class="st">"statakt"</span>))  <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">col_select =</span> <span class="fu">c</span>(<span class="st">"palter"</span>,<span class="st">"PEO0400a"</span>,<span class="st">"PEO0400b"</span>,<span class="st">"PEO0400c"</span>,<span class="st">"statakt"</span>))  <span class="sc">|&gt;</span> </span>
 <span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">5624</span><span class="sc">:</span><span class="dv">5640</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The basic idea is to use <code>ifelse()</code> to replace negative values in a variable with <code>NA</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PEO0400a =</span> <span class="fu">ifelse</span>(PEO0400a<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,PEO0400a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">PEO0400a =</span> <span class="fu">ifelse</span>(PEO0400a<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,PEO0400a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>across()</code> allows us to apply this <code>ifelse()</code>-function to replace <code>NA</code> in <code>PEO0400a</code>,<code>PEO0400b</code>, <code>PEO0400c</code> and <code>statakt</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"PEO0400a"</span>,<span class="st">"PEO0400b"</span>,<span class="st">"PEO0400c"</span>,<span class="st">"statakt"</span>), <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,.x)))  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">"PEO0400a"</span>,<span class="st">"PEO0400b"</span>,<span class="st">"PEO0400c"</span>,<span class="st">"statakt"</span>), <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,.x)))  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 17 × 5
    palter    PEO0400a PEO0400b PEO0400c statakt
@@ -2353,7 +2353,7 @@ $PEO0300c
 16 37               3        4        1      NA
 17 38               3        3        1       1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"PEO0400|statakt"</span>), <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,.x)))  <span class="co"># even shorter: matches()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>pend_small2 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">matches</span>(<span class="st">"PEO0400|statakt"</span>), <span class="sc">~</span><span class="fu">ifelse</span>(.x<span class="sc">&lt;</span><span class="dv">0</span>,<span class="cn">NA</span>,.x)))  <span class="co"># even shorter: matches()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 17 × 5
    palter    PEO0400a PEO0400b PEO0400c statakt
@@ -2383,7 +2383,7 @@ $PEO0300c
 <p><code>case_when()</code> (<code>{dplyr}</code>) extends the principle <code>ifelse()</code>, allowing us to specify more than two options.<br>
 The syntax is slightly different: first, we specify the condition, then after a <code>~</code> the values to be used:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">~</span> <span class="st">"very old"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">~</span> <span class="st">"very old"</span>,</span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>                                gegr <span class="sc">&lt;</span> <span class="dv">1900</span> <span class="sc">~</span> <span class="st">"old"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht gegr                uni      age
@@ -2396,7 +2396,7 @@ The syntax is slightly different: first, we specify the condition, then after a 
 </div>
 <p>With <code>TRUE</code>, we can address all cases that have not met any conditions so far:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">~</span> <span class="st">"very old"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">~</span> <span class="st">"very old"</span>,</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>                                gegr <span class="sc">&lt;</span> <span class="dv">1900</span> <span class="sc">~</span> <span class="st">"old"</span>,</span>
 <span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"relatively new"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2410,7 +2410,7 @@ The syntax is slightly different: first, we specify the condition, then after a 
 </div>
 <p>This doesn’t have to be limited to one variable:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">&amp;</span> prom_recht  <span class="sc">==</span> T <span class="sc">~</span> <span class="st">"very old university"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">case_when</span>(gegr <span class="sc">&lt;</span> <span class="dv">1500</span> <span class="sc">&amp;</span> prom_recht  <span class="sc">==</span> T <span class="sc">~</span> <span class="st">"very old university"</span>,</span>
 <span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>                                gegr <span class="sc">&lt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> prom_recht  <span class="sc">==</span> T <span class="sc">~</span> <span class="st">"old university"</span>,</span>
 <span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>                                gegr <span class="sc">&gt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> prom_recht  <span class="sc">==</span> T <span class="sc">~</span> <span class="st">"young university"</span>,</span>
 <span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>                                gegr <span class="sc">&lt;</span> <span class="dv">1900</span> <span class="sc">&amp;</span> prom_recht  <span class="sc">==</span> F <span class="sc">~</span> <span class="st">"old college"</span>,</span>
@@ -2466,7 +2466,7 @@ Levels: (50,200] (200,350] (350,500] (500,650]</code></pre>
 </div>
 <p>For this new variable, we can request a frequency table using <code>count()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">count</span>(prof_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">count</span>(prof_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  prof_class n
 1   (50,200] 1
@@ -2522,7 +2522,7 @@ Levels: 90s 00s</code></pre>
 <h3 data-number="4.6.3" class="anchored" data-anchor-id="renaming-variables"><span class="header-section-number">4.6.3</span> Renaming variables</h3>
 <p>To rename variables, use <code>rename(new_name = old_name)</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">newname =</span> PEO0300a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">newname =</span> PEO0300a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   newname PEO0300b PEO0300c
@@ -2536,7 +2536,7 @@ Levels: 90s 00s</code></pre>
 </div>
 <p>For advanced transformations, it’s worth looking into <code>rename_with()</code>. This allows us to use <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf">Regular Expressions</a>, for example from <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/strings.pdf">{stringr}</a>. Here’s just an example:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">tolower</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">tolower</span>(.))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   peo0300a peo0300b peo0300c
@@ -2547,7 +2547,7 @@ Levels: 90s 00s</code></pre>
 4        2        1        1
 5        1        1        2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">str_remove</span>(.x,<span class="st">"PEO0300"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">str_remove</span>(.x,<span class="st">"PEO0300"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
       a     b     c
@@ -2558,7 +2558,7 @@ Levels: 90s 00s</code></pre>
 4     2     1     1
 5     1     1     2</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">%&gt;%</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">str_replace</span>(.x,<span class="st">"PEO0300"</span>,<span class="st">"Occupation_"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>sat_small <span class="sc">|&gt;</span> <span class="fu">rename_with</span>(<span class="sc">~</span><span class="fu">str_replace</span>(.x,<span class="st">"PEO0300"</span>,<span class="st">"Occupation_"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   Occupation_a Occupation_b Occupation_c
@@ -2575,7 +2575,7 @@ Levels: 90s 00s</code></pre>
 <h3 data-number="4.6.4" class="anchored" data-anchor-id="string-functions-for-regex"><span class="header-section-number">4.6.4</span> String Functions for <em>regex</em></h3>
 <p><a href="https://stringr.tidyverse.org/">{stringr}</a> provides a series of very useful string functions with <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/regex.pdf">regular expressions</a>. You can get an overview from this <a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/strings.pdf">cheatsheet</a>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">uni_fh =</span> <span class="fu">str_detect</span>(uni,<span class="st">"Uni"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">uni_fh =</span> <span class="fu">str_detect</span>(uni,<span class="st">"Uni"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht gegr                uni uni_fh
 1 14954   250      FALSE 1971          FH Aachen  FALSE
@@ -2584,7 +2584,7 @@ Levels: 90s 00s</code></pre>
 4  9415   150       TRUE 1818           Uni Bonn   TRUE
 5 38079   636      FALSE 1995 FH Bonn-Rhein-Sieg  FALSE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">bula =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(uni,<span class="st">"Bremen"</span>)<span class="sc">~</span> <span class="st">"HB"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">bula =</span> <span class="fu">case_when</span>(<span class="fu">str_detect</span>(uni,<span class="st">"Bremen"</span>)<span class="sc">~</span> <span class="st">"HB"</span>,</span>
 <span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">str_detect</span>(uni,<span class="st">"Oldenb|Vechta"</span>)<span class="sc">~</span> <span class="st">"NDS"</span>,</span>
 <span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">str_detect</span>(uni,<span class="st">"Bonn|Aachen"</span>)<span class="sc">~</span> <span class="st">"NRW"</span>,</span>
 <span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">str_detect</span>(uni,<span class="st">"Freiburg"</span>)<span class="sc">~</span> <span class="st">"BW"</span></span>
@@ -2597,7 +2597,7 @@ Levels: 90s 00s</code></pre>
 4  9415   150       TRUE 1818           Uni Bonn  NRW
 5 38079   636      FALSE 1995 FH Bonn-Rhein-Sieg  NRW</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ort =</span> <span class="fu">str_remove</span>(uni,<span class="st">"Uni |FH |RWTH "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>dat3 <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ort =</span> <span class="fu">str_remove</span>(uni,<span class="st">"Uni |FH |RWTH "</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs prom_recht gegr                uni             ort
 1 14954   250      FALSE 1971          FH Aachen          Aachen
@@ -3021,7 +3021,7 @@ Levels: 90s 00s</code></pre>
   </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./03_desc.html" class="pagination-link" aria-label="Getting an Overview">
+      <a href="./03_desc_test.html" class="pagination-link" aria-label="Getting an Overview">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Getting an Overview</span></span>
       </a>          
   </div>

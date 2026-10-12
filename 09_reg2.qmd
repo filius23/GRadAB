@@ -92,16 +92,16 @@ library(dplyr)
 ```
 
 ```{r, message = F}
-dat1 %>% select(var1, var2) %>% complete.cases(.) 
-dat1$compl_m1 <- dat1 %>% select(var1, var2) %>% complete.cases(.) 
+dat1 |> select(var1, var2) |> complete.cases() 
+dat1$compl_m1 <- dat1 |> select(var1, var2) |> complete.cases() 
 dat1
 ```
 ::: {.callout-warning collapse="true"}
 # `complete.cases()` alone searches for `NA` in all variables
 Note: if we do not specify variables, `NA` will be considered from all variables, including `x`, which we are not interested in here:
 ```{r, message = F}
-dat1 %>% complete.cases(.) 
-dat1$compl <- dat1 %>% complete.cases(.) 
+dat1 |> complete.cases() 
+dat1$compl <- dat1 |> complete.cases() 
 dat1
 ```
 
@@ -115,7 +115,7 @@ dat1$compl <- NULL
 We do the same for model `m4`, which includes `ed_fct` in addition to `var2` and `var1`:
 
 ```{r}
-dat1$compl_m4 <- dat1 %>% select(var1, var2, ed_fct) %>% complete.cases(.)
+dat1$compl_m4 <- dat1 |> select(var1, var2, ed_fct) |> complete.cases()
 ```
 
 Here’s how it looks in the dataset:
@@ -129,7 +129,7 @@ dat1
 Now, we can filter by these variables and examine these cases more closely. We filter for cases that are included in `m1` (i.e., `compl_m1` = `TRUE`) but not in `m4` (`compl_m4` = `FALSE`):
 
 ```{r}
-dat1 %>% filter(compl_m1 == T & compl_m4 == F) 
+dat1 |> filter(compl_m1 == T & compl_m4 == F) 
 ```
 
 ### Calculating Models with Only Complete Cases
@@ -194,14 +194,14 @@ plot_predictions(m5, condition = c("var1", "g_fct")) +
 
 ```{r}
 #| include: false
-dat1 %>% filter(id != 7) %>% 
+dat1 |> filter(id != 7) |> 
   ggplot(aes(x = var1, y = var2)) + 
   geom_smooth(method = "lm", color = "darkblue" , formula = "y~x+I(x^2)", se=F, size = .65) +
   geom_point()
 ```
 
 ```{r}
-m6 <- lm(var2 ~ var1 + I(var1^2), data = dat1 %>% filter(id != 7))
+m6 <- lm(var2 ~ var1 + I(var1^2), data = dat1 |> filter(id != 7))
 summary(m6)
 ```
 
@@ -229,11 +229,11 @@ We can fit logistic regression models in R using `glm()` - for an example, we tu
 
 ```{r}
 pend10 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                          col_select = c("palter","PSM0100")) %>% 
-  filter(PSM0100>0) %>% 
+                          col_select = c("palter","PSM0100")) |> 
+  filter(PSM0100>0) |> 
   mutate(soc_med = 2- PSM0100)  # convert into 0/1 dummy variable
 
-pend10 %>% count(soc_med,PSM0100) # check: soc_med = 1 -> yes, soc_med = 0 -> no
+pend10 |> count(soc_med,PSM0100) # check: soc_med = 1 -> yes, soc_med = 0 -> no
 ```
 
 ```{r}
@@ -269,7 +269,7 @@ avg_slopes(m2)
 ```
     
 ```{r ameInline,echo=F }
-mx <- avg_slopes(m2, by = TRUE) %>% data.frame() %>% pull(estimate)
+mx <- avg_slopes(m2, by = TRUE) |> data.frame() |> pull(estimate)
 ```
 
 *With each additional year of age, there is on average a decrease of `r sprintf("%2.5f",abs(mx))` (`r sprintf("%2.3f",abs(mx*100))` percentage points) in the probability of using social media.*
@@ -287,10 +287,10 @@ fdz_install("survey")
 #| message: false
 #| warning: false
 library(survey)
-pend <- haven::read_dta("./orig/PENDDAT_cf_W13.dta") %>% filter(netges > 0 , palter > 0, azges1 > 0) %>% 
+pend <- haven::read_dta("./orig/PENDDAT_cf_W13.dta") |> filter(netges > 0 , palter > 0, azges1 > 0) |> 
   mutate(zpsex_fct = factor(zpsex, levels = 1:2, labels = c("M","W")))
 wgt_df <- haven::read_dta("./orig/pweights_cf_W13.dta")
-pend_wgt <- pend %>% left_join(wgt_df, by = join_by(pnr,welle))
+pend_wgt <- pend |> left_join(wgt_df, by = join_by(pnr,welle))
 
 modx <- lm(netges ~ palter + I(palter^2),data=pend) # conventional lm() model
 

@@ -8,14 +8,14 @@ library(paletteer)
 library(kableExtra)
 ```
 
-## `%>%` vs. `|>`
+## `|>` vs. `|>`
 
-In this course, we have used the pipe `%>%` from `{tidyverse}` (technically from the `{magrittr}` package). With the update to R 4.1, a pipe `|>` was also introduced in base R, and help pages and other resources are slowly but surely replacing `%>%` with `|>`. For (almost) all applications we've learned, both pipes behave identically. Since older R versions are still installed at the IAB, we have stuck to the 'old version'. However, there's nothing wrong with switching to `|>` after an update—or simply sticking with `%>%`.
+In this course, we have used the pipe `|>` from `{tidyverse}` (technically from the `{magrittr}` package). With the update to R 4.1, a pipe `|>` was also introduced in base R, and help pages and other resources are slowly but surely replacing `|>` with `|>`. For (almost) all applications we've learned, both pipes behave identically. Since older R versions are still installed at the IAB, we have stuck to the 'old version'. However, there's nothing wrong with switching to `|>` after an update—or simply sticking with `|>`.
 
 ![](./pic/pipe.png){width="490"}
 
 You can find more about the differences [here](https://r4ds.hadley.nz/workflow-pipes.html#vs) between the two pipes.
-Additionally, [this blog post](https://kpress.dev/blog/2022-06-19-replacing-the-magrittr-pipe-with-native-r-pipe/) offers a good overview of the pitfalls when switching from `%>%` to `|>`.
+Additionally, [this blog post](https://kpress.dev/blog/2022-06-19-replacing-the-magrittr-pipe-with-native-r-pipe/) offers a good overview of the pitfalls when switching from `|>` to `|>`.
 
 ## Anonymous Functions: `.x` vs. `\(x)` {#anonymfun}
 
@@ -28,15 +28,15 @@ Accordingly, the application in `across()` would look like this:
 
 ```{r}
 #| eval: false
-sat_small <- haven::read_dta("./data/BIBBBAuA_2018_suf1.0.dta",n_max = 16) %>% 
-    select(F1450_04,F1450_05,F1450_06) %>% 
+sat_small <- haven::read_dta("./data/BIBBBAuA_2018_suf1.0.dta",n_max = 16) |> 
+    select(F1450_04,F1450_05,F1450_06) |> 
     slice(12:16)
 
 # formula syntax
-sat_small %>% 
+sat_small |> 
   mutate(across(matches("F1450"), ~mean(.x)))
 # anonymous function shorthand
-sat_small %>% 
+sat_small |> 
   mutate(across(matches("F1450"), \(x) mean(x) ))
 ```
 

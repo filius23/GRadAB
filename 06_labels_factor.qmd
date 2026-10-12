@@ -14,7 +14,7 @@ theme_set(theme_gray() + theme(axis.text.x = element_text(size=rel(1.45))))
 library(tidyverse)
 
 pend_kap5 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                             col_select = c("pnr","welle", "zpsex", "PSM0100","azges1","palter")) %>% 
+                             col_select = c("pnr","welle", "zpsex", "PSM0100","azges1","palter")) |> 
   filter(welle == 8, palter > 0,azges1 > 0)
 ```
 
@@ -32,7 +32,7 @@ For example, when we create a count summary with `count()`, the labels from the 
 
 ```{r}
 # Counting occurrences and showing labels
-pend_kap5 %>% 
+pend_kap5 |> 
   count(PSM0100)
 ```
 These are assigned as `attributes()` variables:
@@ -43,7 +43,7 @@ attributes(pend_kap5$PSM0100)
 
 `enframe()` from the `{tibble}` (part of the `{tidyverse}`) package helps to get data.frame with an overview of all value labels stored in an attribute:
 ```{r}
-attributes(pend_kap5$PSM0100)$labels %>% enframe(value = "variable_value",name = "label")
+attributes(pend_kap5$PSM0100)$labels |> enframe(value = "variable_value",name = "label")
 ```
 
 
@@ -60,7 +60,7 @@ How can we use the `attributes()`-labels as `factor` to save typing?
 pend_kap5$PSM0100_fct <- as_factor(pend_kap5$PSM0100) # create factor variable from attributes and values
 
 # view:
-pend_kap5 %>% select(contains("PSM0100")) %>% head()
+pend_kap5 |> select(contains("PSM0100")) |> head()
 ```
 
 ## Creating or editing `factor` manually
@@ -74,7 +74,7 @@ pend_kap5$PSM0100_fct2 <- factor(pend_kap5$PSM0100,
                                labels = c("Yes!","No :-("))
 
 # view:
-pend_kap5 %>% select(contains("PSM0100")) %>% head()
+pend_kap5 |> select(contains("PSM0100")) |> head()
 
 ```
 
@@ -90,7 +90,7 @@ levels(pend_kap5$PSM0100_fct3)
 ```
 
 ```{r}
-pend_kap5 %>% select(contains("PSM0100")) %>% head()
+pend_kap5 |> select(contains("PSM0100")) |> head()
 ```
 
 More `fct_....()` functions from `{forcats}` can be found in this [Cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/factors.pdf).
@@ -103,7 +103,7 @@ More `fct_....()` functions from `{forcats}` can be found in this [Cheatsheet](h
 
 ```{r}
 pend_ue5 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                               col_select = c("pnr","welle","PD0400")) %>% 
+                               col_select = c("pnr","welle","PD0400")) |> 
   filter(PD0400>0)
 ```
 
@@ -115,16 +115,16 @@ Edit the *value labels* of `PD0400`: `r str_wrap(attributes(pend_ue5$PD0400)$lab
 
 set_flextable_defaults(font.family = "Red Hat Display", font.color = "grey25", border.color = "grey25", font.size = 8, padding = .75)
 
-attributes(pend_ue5$PD0400)$labels %>% 
-  enframe(name = "label") %>% 
-  relocate(value) %>% 
-  filter(value > 0) %>% 
-  flextable() %>% 
-  border_remove() %>% 
-  padding(j = 2, padding.left = 5, padding.right = 15) %>% 
-  align(align = "left", part = "header") %>% 
-  bold(i=1,part = "header") %>% 
-  bg(i = c(2,4),bg = "grey95") %>% 
+attributes(pend_ue5$PD0400)$labels |> 
+  enframe(name = "label") |> 
+  relocate(value) |> 
+  filter(value > 0) |> 
+  flextable() |> 
+  border_remove() |> 
+  padding(j = 2, padding.left = 5, padding.right = 15) |> 
+  align(align = "left", part = "header") |> 
+  bold(i=1,part = "header") |> 
+  bg(i = c(2,4),bg = "grey95") |> 
   autofit() 
 ```
 
@@ -142,12 +142,12 @@ The label `attributes()` often cause problems in further processing. With `haven
 
 ```{r}
 #| echo: false
-pend_kap5 <- pend_kap5 %>% select(c("pnr","welle", "zpsex", "PSM0100","azges1","palter"))
+pend_kap5 <- pend_kap5 |> select(c("pnr","welle", "zpsex", "PSM0100","azges1","palter"))
 ```
 
 ```{r}
 pend_kap5
-pend_kap5 %>% 
+pend_kap5 |> 
   haven::zap_labels() # remove value labels
 ```
 
@@ -171,11 +171,11 @@ pend_kap5$zpsex_num2 <- as.numeric(pend_kap5$zpsex)
 attributes(pend_kap5$zpsex_num2)
 val_labels(pend_kap5$zpsex_num2) <- c("Männer Testtesttest"=1,"Frauen"=2)
 attributes(pend_kap5$zpsex_num2)
-pend_kap5 %>% count(zpsex_num2)
+pend_kap5 |> count(zpsex_num2)
 ```
 ```{r}
-pend_kap5 %>% 
-  select(zpsex_num2) %>% 
+pend_kap5 |> 
+  select(zpsex_num2) |> 
   haven::write_dta(.,path = "./data/pend_kap5.dta")
 ```
 

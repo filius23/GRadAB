@@ -11,8 +11,8 @@ pend12_lab <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",n_max = 1)
 
 ```{r}
 pend12 <- haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                         col_select = c("pnr","welle","netges","schul2","azges1","palter","famstand","zpsex","statakt","hnr")) %>% 
-  filter(netges > 0, schul2 %in% 2:7, palter > 0, famstand > 0, azges1 > 0 , welle == 13) %>% 
+                         col_select = c("pnr","welle","netges","schul2","azges1","palter","famstand","zpsex","statakt","hnr")) |> 
+  filter(netges > 0, schul2 %in% 2:7, palter > 0, famstand > 0, azges1 > 0 , welle == 13) |> 
   mutate(
     across(matches("palter|netges|azges1"),~as.numeric(.x)),
     famstand_fct = factor(famstand,levels = 1:5,labels = c("Ledig","Verheiratet", "Verheiratet getr. lebd.", "Geschieden", "Verwitwet")),
@@ -44,7 +44,7 @@ Wir möchten die gleiche für eine Reihe unterschiedlicher Untergruppen erstelle
 #| warning: false
 #| fig-width: 3
 #| fig-height: 3
-pend12 %>%
+pend12 |>
   ggplot(aes(x = azges1,  y = netges)) + 
   geom_point() + 
   theme_minimal()
@@ -56,8 +56,8 @@ Dieses Argument geben wir dann in einen `filter()`-Befehl innerhalb der `functio
 [^paste]: Es können auch mehrere  `character` das Ergebnis eines `paste0()` sein: siehe bspw. `paste0("no",1:5)`
 ```{r pltfun1def}
 plot_fun1 <- function(famstat_filter){
-  pend12 %>%
-    filter(famstand_fct == famstat_filter) %>% 
+  pend12 |>
+    filter(famstand_fct == famstat_filter) |> 
     ggplot(aes(x = azges1,  y = netges)) + 
     geom_point() + 
     theme_minimal() +
@@ -90,12 +90,12 @@ Etwas übersichtlicher ist das ganze, wenn wir die Plots in einem `data.frame`( 
 #| fig-height: 3
 #| warning: false
 plot_df <- 
-  data.frame(famstand_fct = levels(pend12$famstand_fct)) %>% 
+  data.frame(famstand_fct = levels(pend12$famstand_fct)) |> 
   mutate(plots = map(famstand_fct,plot_fun1))
 
 # head(plot_df)
 
-plot_df %>% filter(famstand_fct ==  "Verheiratet") %>% pull(plots)
+plot_df |> filter(famstand_fct ==  "Verheiratet") |> pull(plots)
 ```
 
 
@@ -104,8 +104,8 @@ Was jetzt aber, wenn wir mehrere Variablen berücksichtigen möchten?
 Dazu erstellen wir zunächst eine neue `function()` mit mehreren Argumenten und erweitern auch den `filter()` und `paste0()`-Befehl innerhalb der Funktionen:
 ```{r}
 plot_fun2 <- function(famstat_filter, zpsex_filter){
-  pend12 %>%
-    filter(famstand_fct == famstat_filter, zpsex_fct == zpsex_filter) %>% 
+  pend12 |>
+    filter(famstand_fct == famstat_filter, zpsex_fct == zpsex_filter) |> 
     ggplot(aes(x = azges1,  y = netges)) + 
     geom_point() + 
     theme_minimal() +
@@ -123,7 +123,7 @@ Diese beiden Spalten geben wir jetzt in unseren `map()`-Befehl - allerdings habe
 ```{r}
 plot_df2 <- 
   expand_grid(famstand_fct = levels(pend12$famstand_fct),
-              zpsex_fct = levels(pend12$zpsex_fct)) %>% 
+              zpsex_fct = levels(pend12$zpsex_fct)) |> 
     mutate(plots = pmap(list(famstat_filter= famstand_fct,zpsex_filter = zpsex_fct),  # Variablen mit = den Funktions-Argumenten zuweisen
                         plot_fun2))
 ```
@@ -131,8 +131,8 @@ plot_df2 <-
 #| warning: false
 #| fig-width: 5
 #| fig-height: 3
-plot_df2 %>% filter(famstand_fct ==  "Verheiratet",zpsex_fct ==  "Frauen") %>% pull(plots)
-plot_df2 %>% filter(famstand_fct ==  "Verheiratet",zpsex_fct ==  "Männer") %>% pull(plots)
+plot_df2 |> filter(famstand_fct ==  "Verheiratet",zpsex_fct ==  "Frauen") |> pull(plots)
+plot_df2 |> filter(famstand_fct ==  "Verheiratet",zpsex_fct ==  "Männer") |> pull(plots)
 ```
 ### Daumenkino aus der Plotserie
 
@@ -140,7 +140,7 @@ Wenn wir dann mit `map()` die `print()` -Funktion anwenden, können wir die Plot
 
 ```{r}
 #| eval: false
-plot_df2$plots %>% map(~print(.x))
+plot_df2$plots |> map(~print(.x))
 ```
 
 
@@ -175,7 +175,7 @@ mod_function <- function(modx){
 
 Als Test können wir `mod_function()` jetzt einmal verwenden:
 ```{r funtest}
-mod_function("netges ~ azges1") %>% summary() # sieht gut aus
+mod_function("netges ~ azges1") |> summary() # sieht gut aus
 ```
 
 
@@ -221,13 +221,13 @@ hh_dat <- haven::read_dta("./orig/HHENDDAT_cf_W13.dta", col_select = c("hnr","we
 # p_reg <- haven::read_dta("./orig/p_register_cf_W13.dta", col_select = c("pnr","hnr"))
 
 pend12_ow <- 
-  pend12 %>%
-    left_join(hh_dat,by = c("hnr","welle")) %>% 
-     mutate(east = ifelse(region == 2,"east","west")) %>% 
+  pend12 |>
+    left_join(hh_dat,by = c("hnr","welle")) |> 
+     mutate(east = ifelse(region == 2,"east","west")) |> 
   select(netges,azges1,schul2_fct,palter,zpsex_fct, east)
 
 pend12_ow_nest <- 
-  pend12_ow %>% 
+  pend12_ow |> 
       nest(.by=east)
 ```
 In der Spalte `data` sind jetzt also die Datensätze für Ost und West enthalten:
@@ -239,7 +239,7 @@ head(pend12_ow_nest$data[[2]],n=3)
 Auf den so gesplitteten Datensatz können wir mit `map()` ein `lm()`-Modell anwenden:
 ```{r modow}
 mod_ow <- 
-  pend12_ow_nest %>% 
+  pend12_ow_nest |> 
     mutate(model = map(data, function(data) {
       lm("netges ~ palter + zpsex_fct", data = data) # ad-hoc function --> siehe tip)
     })) 
@@ -343,7 +343,7 @@ modelsummary(mod_ow$model,stars = T,gof_omit = "IC|RM|Log",output = "flextable")
 <!-- #| eval: false -->
 <!-- bind_rows(mod_l4,.id="Mod_name") -->
 <!-- # oder in einem Schritt: -->
-<!-- map(mdls,mod_function4) %>% bind_rows(.id="Mod_name") -->
+<!-- map(mdls,mod_function4) |> bind_rows(.id="Mod_name") -->
 <!-- # mit map_dfr() aus {purrr} in einem Schritt -->
 <!-- map_dfr(mdls,mod_function4,.id="Mod_name") -->
 <!-- ``` -->
@@ -351,7 +351,7 @@ modelsummary(mod_ow$model,stars = T,gof_omit = "IC|RM|Log",output = "flextable")
 
 <!-- ```{r} -->
 <!-- #| echo: false -->
-<!-- bind_rows(mod_l4,.id="Mod_name") %>%  -->
+<!-- bind_rows(mod_l4,.id="Mod_name") |>  -->
 <!--   rmarkdown::paged_table() -->
 <!-- ``` -->
 
@@ -363,8 +363,8 @@ modelsummary(mod_ow$model,stars = T,gof_omit = "IC|RM|Log",output = "flextable")
 #| eval: false
 pend_ue12 <- 
   haven::read_dta("./orig/PENDDAT_cf_W13.dta",
-                  col_select = c("pnr","welle","zpsex","netges","schul2","bilzeit","azges1","palter") ) %>% 
-  filter(netges > 0, schul2 %in% 2:7, palter > 0, bilzeit > 0, azges1 > 0 , welle == 13) %>% 
+                  col_select = c("pnr","welle","zpsex","netges","schul2","bilzeit","azges1","palter") ) |> 
+  filter(netges > 0, schul2 %in% 2:7, palter > 0, bilzeit > 0, azges1 > 0 , welle == 13) |> 
   mutate(
     across(matches("palter|netges|azges1|bilzeit"),~as.numeric(.x)),
     schul2_fct = factor(schul2,levels = 2:7, labels = c("ohne","Förderschule","Hauptschule","Mittlere Reife","FOS/BOS","Abi")),
@@ -451,7 +451,7 @@ Möchten wir über Variablen loopen, müssen wir R explizit mitteilen, dass die 
 ```{r}
 #| error: true
 for(v in c("schul2_fct","zpsex_fct","statakt_fct")){
-  pend12 %>% count(v) %>% print()
+  pend12 |> count(v) |> print()
 }
 ```
 
@@ -459,7 +459,7 @@ Das können wir mit `!!rlang::sym(v)`:
 
 ```{r}
 for(v in c("schul2_fct","zpsex_fct","statakt_fct")){
-  pend12 %>% count(!!rlang::sym(v)) %>% print()
+  pend12 |> count(!!rlang::sym(v)) |> print()
 }
 ```
 
