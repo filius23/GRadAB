@@ -20,4 +20,4 @@
 .positai
 
 **/*.quarto_ipynb
-quarto_extensions_install.ps1
+quarto_extensions_install.ps1"prog_final/" 
