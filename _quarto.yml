@@ -23,6 +23,7 @@ book:
     - 05_merge_pivot.qmd
     - 06_labels_factor.qmd
     - 15_map.qmd
+    - 16_reproducibility.qmd
     # - 14_tabellenexport.qmd
     # - 07_inferenz.qmd
     # - 10_log_reg.qmd

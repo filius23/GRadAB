@@ -278,7 +278,7 @@ The solution: the `{fdzinstall}` package retrieves packages from the internal NE
 
 **Step 1: get`fdzinstall()`**
   
-  Run this once to set up the package:
+Run this once to set up the package:
   
 ```{r, eval = F}
 install.packages(
@@ -1000,68 +1000,6 @@ c("RWTH Aachen", "Uni Freiburg", "Uni Bonn", "FH Aachen", "FH Bonn-Rhein-Sieg")
 
 [Back to top](#ue_5)
 
-## Reproducibility: Shared packages on shared servers {#shared-packages}
-
-On shared IAB servers, people typically work in teams on the same projects.
-When `install.packages()` fails to install to `C:/...R/` (no admin rights), it falls back to your personal Documents folder on that server.
-This means packages are both **user-specific** and **server-specific**, i.e, installed packages are only available to your account on that server.
-This creates a critical reproducibility problem: each team member ends up with *different* package versions, and code may break across team members and even across servers for the same team member.
-
-### Best practice for team projects
-On shared servers, team members need access to **the same package versions** for reproducible work. 
-The most reliable solution is to use a project-specific `.Rprofile` that points all team members to a shared package library.
-
-1. Create a `./prog/library/` folder in your project root
-2. Add a project-specific `.Rprofile` (use the [ToolsAB](https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/) template)
-3. Install the `{fdzinstall}` package
-4. Using `fdzinstall` now installs packages to the same folder:
-   ```r
-   fdzinstall("ggplot2")  # respects .libPaths() from .Rprofile
-   ```
-5. *Optional: use version control (git)*
-
-### Set up your project library (do this once)
-
-You're in your project directory with your `.Rproj` file. 
-You can check whether (correct) the `.Rproj` is active:
-```{r, eval = F}
-rstudioapi::getActiveProject() 
-```
-
-Run this once:
-```{r, eval = F}
-# Create the shared library folder
-dir.create("./prog/library", showWarnings = FALSE, recursive = TRUE)
-
-# Download the project .Rprofile from ToolsAB
-download.file(
-  url = "https://github.webapp.dst.baintern.de/iab/ToolsAB/raw/master/Rprofiles/iab_profile.R",
-  destfile = ".Rprofile"
-)
-
-# Edit line 25 in your new .Rprofile: change the libdir to
-# libdir <- "./prog/library"
-```
-
-Restart R (`CTRL + F10`). Done.
-
-### Package installation routine
-
-When anyone on your team opens the `.Rproj` file, the library settings are automatically the same.
-```{r, eval = F}
-# Now this installs to your project library, not to Z: or Documents
-fdzinstall("tidyverse")
-library(tidyverse)
-```
-```{r, eval = F}
-# if you want to see where the packages are 
-.libPaths()
-```
-
-
-- **Everyone** on the team works with **identical package versions**
-- The setup **travels with your project** 
-- No manual setup needed when someone joins the project
 
 ## Appendix
 

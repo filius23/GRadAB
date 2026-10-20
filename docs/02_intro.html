@@ -283,17 +283,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data4" id="toc-data4" class="nav-link" data-scroll-target="#data4"><span class="header-section-number">2.12.4</span> Exercise 4</a></li>
   <li><a href="#data5" id="toc-data5" class="nav-link" data-scroll-target="#data5"><span class="header-section-number">2.12.5</span> Exercise 5</a></li>
   </ul></li>
-  <li><a href="#shared-packages" id="toc-shared-packages" class="nav-link" data-scroll-target="#shared-packages"><span class="header-section-number">2.13</span> Reproducibility: Shared packages on shared servers</a>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">2.13</span> Appendix</a>
   <ul class="collapse">
-  <li><a href="#best-practice-for-team-projects" id="toc-best-practice-for-team-projects" class="nav-link" data-scroll-target="#best-practice-for-team-projects"><span class="header-section-number">2.13.1</span> Best practice for team projects</a></li>
-  <li><a href="#set-up-your-project-library-do-this-once" id="toc-set-up-your-project-library-do-this-once" class="nav-link" data-scroll-target="#set-up-your-project-library-do-this-once"><span class="header-section-number">2.13.2</span> Set up your project library (do this once)</a></li>
-  <li><a href="#package-installation-routine" id="toc-package-installation-routine" class="nav-link" data-scroll-target="#package-installation-routine"><span class="header-section-number">2.13.3</span> Package installation routine</a></li>
-  </ul></li>
-  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">2.14</span> Appendix</a>
-  <ul class="collapse">
-  <li><a href="#setwd" id="toc-setwd" class="nav-link" data-scroll-target="#setwd"><span class="header-section-number">2.14.1</span> Alternatives to R Projects</a></li>
-  <li><a href="#selfiltbase" id="toc-selfiltbase" class="nav-link" data-scroll-target="#selfiltbase"><span class="header-section-number">2.14.2</span> Selecting Rows &amp; Columns Without <code>{dplyr}</code></a></li>
-  <li><a href="#select-vs" id="toc-select-vs" class="nav-link" data-scroll-target="#select-vs"><span class="header-section-number">2.14.3</span> <code>select()</code> vs <code>$</code></a></li>
+  <li><a href="#setwd" id="toc-setwd" class="nav-link" data-scroll-target="#setwd"><span class="header-section-number">2.13.1</span> Alternatives to R Projects</a></li>
+  <li><a href="#selfiltbase" id="toc-selfiltbase" class="nav-link" data-scroll-target="#selfiltbase"><span class="header-section-number">2.13.2</span> Selecting Rows &amp; Columns Without <code>{dplyr}</code></a></li>
+  <li><a href="#select-vs" id="toc-select-vs" class="nav-link" data-scroll-target="#select-vs"><span class="header-section-number">2.13.3</span> <code>select()</code> vs <code>$</code></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -2455,131 +2449,75 @@ also imports files from newer Stata versions</td>
 <p><a href="#ue_5">Back to top</a></p>
 </section>
 </section>
-<section id="shared-packages" class="level2" data-number="2.13">
-<h2 data-number="2.13" class="anchored" data-anchor-id="shared-packages"><span class="header-section-number">2.13</span> Reproducibility: Shared packages on shared servers</h2>
-<p>On shared IAB servers, people typically work in teams on the same projects. When <code>install.packages()</code> fails to install to <code>C:/...R/</code> (no admin rights), it falls back to your personal Documents folder on that server. This means packages are both <strong>user-specific</strong> and <strong>server-specific</strong>, i.e, installed packages are only available to your account on that server. This creates a critical reproducibility problem: each team member ends up with <em>different</em> package versions, and code may break across team members and even across servers for the same team member.</p>
-<section id="best-practice-for-team-projects" class="level3" data-number="2.13.1">
-<h3 data-number="2.13.1" class="anchored" data-anchor-id="best-practice-for-team-projects"><span class="header-section-number">2.13.1</span> Best practice for team projects</h3>
-<p>On shared servers, team members need access to <strong>the same package versions</strong> for reproducible work. The most reliable solution is to use a project-specific <code>.Rprofile</code> that points all team members to a shared package library.</p>
-<ol type="1">
-<li><p>Create a <code>./prog/library/</code> folder in your project root</p></li>
-<li><p>Add a project-specific <code>.Rprofile</code> (use the <a href="https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/">ToolsAB</a> template)</p></li>
-<li><p>Install the <code>{fdzinstall}</code> package</p></li>
-<li><p>Using <code>fdzinstall</code> now installs packages to the same folder:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fdzinstall</span>(<span class="st">"ggplot2"</span>)  <span class="co"># respects .libPaths() from .Rprofile</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><em>Optional: use version control (git)</em></p></li>
-</ol>
-</section>
-<section id="set-up-your-project-library-do-this-once" class="level3" data-number="2.13.2">
-<h3 data-number="2.13.2" class="anchored" data-anchor-id="set-up-your-project-library-do-this-once"><span class="header-section-number">2.13.2</span> Set up your project library (do this once)</h3>
-<p>You’re in your project directory with your <code>.Rproj</code> file. You can check whether (correct) the <code>.Rproj</code> is active:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>rstudioapi<span class="sc">::</span><span class="fu">getActiveProject</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Run this once:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the shared library folder</span></span>
-<span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">"./prog/library"</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb127-3"><a href="#cb127-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-4"><a href="#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Download the project .Rprofile from ToolsAB</span></span>
-<span id="cb127-5"><a href="#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb127-6"><a href="#cb127-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://github.webapp.dst.baintern.de/iab/ToolsAB/raw/master/Rprofiles/iab_profile.R"</span>,</span>
-<span id="cb127-7"><a href="#cb127-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">".Rprofile"</span></span>
-<span id="cb127-8"><a href="#cb127-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb127-9"><a href="#cb127-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb127-10"><a href="#cb127-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit line 25 in your new .Rprofile: change the libdir to</span></span>
-<span id="cb127-11"><a href="#cb127-11" aria-hidden="true" tabindex="-1"></a><span class="co"># libdir &lt;- "./prog/library"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Restart R (<code>CTRL + F10</code>). Done.</p>
-</section>
-<section id="package-installation-routine" class="level3" data-number="2.13.3">
-<h3 data-number="2.13.3" class="anchored" data-anchor-id="package-installation-routine"><span class="header-section-number">2.13.3</span> Package installation routine</h3>
-<p>When anyone on your team opens the <code>.Rproj</code> file, the library settings are automatically the same.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now this installs to your project library, not to Z: or Documents</span></span>
-<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fdzinstall</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb128-3"><a href="#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if you want to see where the packages are </span></span>
-<span id="cb129-2"><a href="#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<ul>
-<li><strong>Everyone</strong> on the team works with <strong>identical package versions</strong></li>
-<li>The setup <strong>travels with your project</strong></li>
-<li>No manual setup needed when someone joins the project</li>
-</ul>
-</section>
-</section>
-<section id="appendix" class="level2" data-number="2.14">
-<h2 data-number="2.14" class="anchored" data-anchor-id="appendix"><span class="header-section-number">2.14</span> Appendix</h2>
-<section id="setwd" class="level3" data-number="2.14.1">
-<h3 data-number="2.14.1" class="anchored" data-anchor-id="setwd"><span class="header-section-number">2.14.1</span> Alternatives to R Projects</h3>
+<section id="appendix" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="appendix"><span class="header-section-number">2.13</span> Appendix</h2>
+<section id="setwd" class="level3" data-number="2.13.1">
+<h3 data-number="2.13.1" class="anchored" data-anchor-id="setwd"><span class="header-section-number">2.13.1</span> Alternatives to R Projects</h3>
 <p>Besides setting up a project, you can also set the path using <code>setwd()</code> or directly specify it within <code>read_dta()</code> or other <code>read...()</code> commands. However, this approach is less portable to other machines. When someone else opens the <code>.Rproj</code> file, R automatically sets paths relative to the file’s location. This is also true if the directory is moved on your device—R will automatically adjust the working directory.</p>
 <p>To set the working directory with <code>setwd()</code>, insert the folder path within the parentheses. Make sure to replace any <code>\</code> with <code>/</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"D:/Kurse/R_IAB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"D:/Kurse/R_IAB"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can check if it worked with <code>getwd()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The path you set with <code>setwd()</code> should appear.</p>
 <p>Alternatively, you can provide the full path directly in <code>read_dta()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>pend <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"C:/Kurse/R_IAB/orig/PENDDAT_cf_W13.dta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a>pend <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_dta</span>(<span class="st">"C:/Kurse/R_IAB/orig/PENDDAT_cf_W13.dta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="selfiltbase" class="level3" data-number="2.14.2">
-<h3 data-number="2.14.2" class="anchored" data-anchor-id="selfiltbase"><span class="header-section-number">2.14.2</span> Selecting Rows &amp; Columns Without <code>{dplyr}</code></h3>
+<section id="selfiltbase" class="level3" data-number="2.13.2">
+<h3 data-number="2.13.2" class="anchored" data-anchor-id="selfiltbase"><span class="header-section-number">2.13.2</span> Selecting Rows &amp; Columns Without <code>{dplyr}</code></h3>
 <p>Base R (without extensions like <code>{dplyr}</code>) can also filter datasets using square brackets <code>[]</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># first row, first column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">1</span>, <span class="dv">1</span>] <span class="co"># first row, first column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19173</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">1</span>, ]  <span class="co"># first row, all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="dv">1</span>, ]  <span class="co"># first row, all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs gegr stu_prof        uni    uni_fct gegr_fct
 1 19173   322 1971 59.54348 Uni Bremen Uni Bremen      70s</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="dv">1</span>]  <span class="co"># all rows, first column (equivalent to dat1$studs)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="dv">1</span>]  <span class="co"># all rows, first column (equivalent to dat1$studs)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19173  5333 15643</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="st">"studs"</span>] <span class="co"># all rows, column named studs -&gt; note the ""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="st">"studs"</span>] <span class="co"># all rows, column named studs -&gt; note the ""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19173  5333 15643</code></pre>
 </div>
 </div>
 <p>You can also select multiple rows or columns by using <code>c()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), ]  <span class="do">## 1st &amp; 2nd row, all columns</span></span>
-<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="do">## all rows, 1st &amp; 3rd column (equivalent to dat1$studs &amp; dat1$stu_prof)</span></span>
-<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="fu">c</span>(<span class="st">"studs"</span>, <span class="st">"uni"</span>)] <span class="do">## all rows, columns named studs and uni</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>dat1[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), ]  <span class="do">## 1st &amp; 2nd row, all columns</span></span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="do">## all rows, 1st &amp; 3rd column (equivalent to dat1$studs &amp; dat1$stu_prof)</span></span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>dat1[, <span class="fu">c</span>(<span class="st">"studs"</span>, <span class="st">"uni"</span>)] <span class="do">## all rows, columns named studs and uni</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can also write conditions in these square brackets to make selections from <code>dat1</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="co"># full dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="co"># full dataset</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs gegr stu_prof           uni       uni_fct gegr_fct
 1 19173   322 1971 59.54348    Uni Bremen    Uni Bremen      70s
 2  5333    67 1830 79.59701    Uni Vechta    Uni Vechta    early
 3 15643   210 1973 74.49048 Uni Oldenburg Uni Oldenburg      70s</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span>, ] <span class="co"># Rows where uni equals "Uni Oldenburg", all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span>, ] <span class="co"># Rows where uni equals "Uni Oldenburg", all columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs gegr stu_prof           uni       uni_fct gegr_fct
 3 15643   210 1973 74.49048 Uni Oldenburg Uni Oldenburg      70s</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span>] <span class="co"># Just check the student count: no comma needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span>] <span class="co"># Just check the student count: no comma needed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15643</code></pre>
 </div>
 </div>
 <p>This works as expected, and we can expand it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb148"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span> <span class="sc">&amp;</span> dat1<span class="sc">$</span>studs <span class="sc">&gt;</span> <span class="dv">10000</span>, ] <span class="co"># &amp; means AND</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span> <span class="sc">&amp;</span> dat1<span class="sc">$</span>studs <span class="sc">&gt;</span> <span class="dv">10000</span>, ] <span class="co"># &amp; means AND</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs gegr stu_prof           uni       uni_fct gegr_fct
 3 15643   210 1973 74.49048 Uni Oldenburg Uni Oldenburg      70s</code></pre>
@@ -2587,7 +2525,7 @@ also imports files from newer Stata versions</td>
 </div>
 <p>You can also use the OR operator:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb150"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span> <span class="sc">|</span> dat1<span class="sc">$</span>studs <span class="sc">&gt;</span> <span class="dv">10000</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>dat1[dat1<span class="sc">$</span>uni <span class="sc">==</span> <span class="st">"Uni Oldenburg"</span> <span class="sc">|</span> dat1<span class="sc">$</span>studs <span class="sc">&gt;</span> <span class="dv">10000</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs profs gegr stu_prof           uni       uni_fct gegr_fct
 1 19173   322 1971 59.54348    Uni Bremen    Uni Bremen      70s
@@ -2595,37 +2533,37 @@ also imports files from newer Stata versions</td>
 </div>
 </div>
 </section>
-<section id="select-vs" class="level3" data-number="2.14.3">
-<h3 data-number="2.14.3" class="anchored" data-anchor-id="select-vs"><span class="header-section-number">2.14.3</span> <code>select()</code> vs <code>$</code></h3>
+<section id="select-vs" class="level3" data-number="2.13.3">
+<h3 data-number="2.13.3" class="anchored" data-anchor-id="select-vs"><span class="header-section-number">2.13.3</span> <code>select()</code> vs <code>$</code></h3>
 <p>When you use <code>select()</code> to pick a specific variable, it preserves the data structure as a <code>data.frame()</code>, whereas <code>dat1$variablename</code> extracts the column as a vector (a series of values):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb152"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 19173  5333 15643</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dat1<span class="sc">$</span>studs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dat1<span class="sc">$</span>studs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb156"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs <span class="sc">/</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>dat1<span class="sc">$</span>studs <span class="sc">/</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 958.65 266.65 782.15</code></pre>
 </div>
 </div>
 <p><code>select()</code> keeps the values as a column in a <code>data.frame</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  studs
 1 19173
 2  5333
 3 15643</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs) <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs) <span class="sc">|&gt;</span> <span class="fu">class</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "data.frame"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs) <span class="sc">/</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>dat1 <span class="sc">|&gt;</span> <span class="fu">select</span>(studs) <span class="sc">/</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   studs
 1 958.65
