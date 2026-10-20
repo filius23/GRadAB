@@ -1012,7 +1012,7 @@ On shared servers, team members need access to **the same package versions** for
 The most reliable solution is to use a project-specific `.Rprofile` that points all team members to a shared package library.
 
 1. Create a `./prog/library/` folder in your project root
-2. Add a project-specific `.Rprofile` (use the [ToolsAB](https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/iab_profile.R) template)
+2. Add a project-specific `.Rprofile` (use the [ToolsAB](https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/) template)
 3. Install the `{fdzinstall}` package
 4. Using `fdzinstall` now installs packages to the same folder:
    ```r
