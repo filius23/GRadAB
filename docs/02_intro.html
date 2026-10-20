@@ -2463,7 +2463,7 @@ also imports files from newer Stata versions</td>
 <p>On shared servers, team members need access to <strong>the same package versions</strong> for reproducible work. The most reliable solution is to use a project-specific <code>.Rprofile</code> that points all team members to a shared package library.</p>
 <ol type="1">
 <li><p>Create a <code>./prog/library/</code> folder in your project root</p></li>
-<li><p>Add a project-specific <code>.Rprofile</code> (use the <a href="https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/iab_profile.R">ToolsAB</a> template)</p></li>
+<li><p>Add a project-specific <code>.Rprofile</code> (use the <a href="https://github.webapp.dst.baintern.de/iab/ToolsAB/blob/master/Rprofiles/">ToolsAB</a> template)</p></li>
 <li><p>Install the <code>{fdzinstall}</code> package</p></li>
 <li><p>Using <code>fdzinstall</code> now installs packages to the same folder:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fdzinstall</span>(<span class="st">"ggplot2"</span>)  <span class="co"># respects .libPaths() from .Rprofile</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
