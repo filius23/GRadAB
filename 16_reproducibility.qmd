@@ -88,7 +88,7 @@ install.packages(
 ```
 
 
-## Install packages using `fdzinstall` {.unnumbered}
+#### Install packages using `fdzinstall` {.unnumbered}
 
 Agree with your team before installing or updating packages, since changes affect everyone who uses the shared library.
 
