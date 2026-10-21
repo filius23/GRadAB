@@ -41,10 +41,11 @@ You can check whether the (correct) `.Rproj` is active:
 rstudioapi::getActiveProject() 
 ```
 
-Now create a subfolder in your `prog` directory where all packages for this project will be stored.
 Run each of these steps once:
 
 #### Create the shared library folder {.unnumbered}
+Now create a subfolder in your `prog` directory where all packages for this project will be stored.
+
 ```{r, eval = F}
 libdir <- file.path("./prog/library", 
                     paste(getRversion()[[1, 1:2]], collapse = "-"))
