@@ -603,7 +603,7 @@ rstudioapi::openProject(path = "D:/Courses/R-Course")
 
 ### `r emoji::emoji_name["bulb"]` Using projects to ensure reproducibility {#reproducibility}
 
-R-Projects are a great way to organize your work and help to ensure reproducibility in conjunction with the [FDZ `.Rprofile`](#fdz_install):
+R-Projects are a great way to organize your work and help to ensure reproducibility in conjunction with an [ `.Rprofile`](#fdz_install):
 
 By default, the `.Rprofile` stores all packages installed via `fdz_install()` in your personal Documents folder on `Z:`, as you can see in the startup message in the path displayed as **Default package library:**
 
@@ -620,48 +620,7 @@ You'll have to track down the original package version when you're trying to re-
 
 `r emoji::emoji_name["warning"]` This can be extremely painful and make you question what life decisions brought you here.
 
-Therefore, I recommend setting up a **project-specific** `.RProfile` for projects that require reprodicibility:  
-
-`r emoji::emoji_name["keycap_1"]` Copy the `.Rprofile` to your project root directory  
-
-```{r, eval = F}
-file.copy(from = paste0(
-                    dir(path = "C:/Users/",
-                        pattern = Sys.getenv("USERNAME"), # find correct User-Folder on C:
-                        full.names = T),
-                    "/Documents/.Rprofile"
-                    ),
-          to = "."
-          )
-```
-
-`r emoji::emoji_name["keycap_2"]`️ amend the first few lines so that packages are loaded and installed from within the project folder by modifying lines 11-19:
-
-```{r}
-#| eval: false
-libdir <- 
-  paste0(
-    "Z:/R/",         # redirects library/fdz_install to Z:/R/
-    R.version$major, # major Version
-    "-",
-    sub(R.version$minor, pattern = "\\..+", replacement = "") # minor version
-  )
-```
-For instance, you could set a relative path to a subdirectory called "library" in your project:
-```{r}
-#| eval: false
-#| lst-label: lst-code
-libdir <- 
-  paste0(
-    "./library/",    # adjust path here
-    R.version$major, # major Version
-    "-",
-    sub(R.version$minor, pattern = "\\..+", replacement = "") # minor version
-  )
-```
-
-This will result in your packages being stored in `path/to/your/project/library/RX-Y` with X-Y being the R version.
-The downside of this approach is that you'll need to (re-)install the packages you're using for your project, and storing identical packages in multiple directories can be inefficient in terms of memory usage.
+Therefore, I recommend setting up a **project-specific** `.RProfile` for projects that require reprodicibility. See chapter [Reproducibility](#repro) for a step-by-step guide.
 
 
 ## Importing datasets {#import}
