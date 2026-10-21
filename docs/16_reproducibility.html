@@ -293,10 +293,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rstudioapi<span class="sc">::</span><span class="fu">getActiveProject</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Now create a subfolder in your <code>prog</code> directory where all packages for this project will be stored. Run each of these steps once:</p>
+<p>Run each of these steps once:</p>
 </section>
 <section id="create-the-shared-library-folder" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="create-the-shared-library-folder">Create the shared library folder</h4>
+<p>Now create a subfolder in your <code>prog</code> directory where all packages for this project will be stored.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>libdir <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="st">"./prog/library"</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">paste</span>(<span class="fu">getRversion</span>()[[<span class="dv">1</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]], <span class="at">collapse =</span> <span class="st">"-"</span>))</span>
